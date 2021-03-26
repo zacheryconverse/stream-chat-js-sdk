@@ -2,7 +2,7 @@
 
 This project was bootstrapped with:\
 [Create React App](https://github.com/facebook/create-react-app)\
-[stream-chat](https://www.npmjs.com/package/stream-chat)\
+[stream-chat](https://www.npmjs.com/package/stream-chat)
 
 ## Available Scripts
 
