@@ -25,7 +25,7 @@ export default function Login({ setLogin, userId, setUserId, }) {
       // .then((result) => console.log(result.data))
       .then((res) => chatClient.connectUser({ id: userId }, res.data))
       .then(() => setLogin(true))
-      .then(() => console.log(chatClient, 'chatClient'))
+      .then(() => console.log('chatClient', chatClient))
       .catch((err) => console.error("ERROR", err));
   };
 
@@ -47,5 +47,3 @@ export default function Login({ setLogin, userId, setUserId, }) {
   // module.exports = chatClient;
 }
 // export { chatClient }
-
-// export default Login;
