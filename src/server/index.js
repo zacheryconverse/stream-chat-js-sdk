@@ -18,8 +18,7 @@ app.use(express.json());
 
 app.post("/token", async (req, res) => {
   const { user_id } = req.body;
-  // console.log(user_id, 'id');
-  const token = serverClient.createToken(user_id);
+  const token = serverClient.createToken(user_id)
   try {
     res.status(200).send(token);
   } catch (err) {
