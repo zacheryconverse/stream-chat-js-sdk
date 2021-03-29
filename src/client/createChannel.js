@@ -2,13 +2,11 @@ const path = require('path');
 const StreamChat = require("stream-chat").StreamChat;
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 const apiKey = process.env["REACT_APP_KEY"];
+const token = process.env["REACT_APP_TOKEN"];
+const userId = process.env["REACT_APP_USERID"];
 
-console.log(apiKey, 'apiKey')
+console.log(apiKey, token, userId, 'apiKey');
 const chatClient = StreamChat.getInstance(apiKey);
-
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiWmFjaGVyeSJ9.qQ49SM6QAQ2i5FAzwDS977orC1SxuP9UuVDZ6S7u9Kc";
-const userId = 'Zachery';
 
 chatClient.connectUser({ id: userId }, token);
 
@@ -34,6 +32,6 @@ const createChannel = async (channelType, cid, members, name) => {
 createChannel(
   "messaging",
   "channel-id-123",
-  ["Zachery", "Cody"],
+  ["Zachery", "Cody", "Sam"],
   "A channel about coding a chat app"
 ).then(() => console.log("createChannel Called"));
