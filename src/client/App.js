@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { StreamChat } from 'stream-chat';
 import "./App.css";
+import SendMessage from './components/SendMessage/SendMessage'
 import Login from "./components/Login";
 const apiKey = process.env["REACT_APP_KEY"];
 // import { chatClient } from "./components/Login";
 const chatClient = StreamChat.getInstance(apiKey);
 
 function App() {
-  // const [login, setLogin] = useState(false);
-  // const [logout, setLogout] = useState(false);
+
   const [isLoggedIn, setLoggedIn] = useState(false)
 
   if (!isLoggedIn) {
@@ -24,6 +24,7 @@ function App() {
         <Login isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
       }
       <button onClick={() => setLoggedIn(!isLoggedIn)}>disconnect</button>
+      <SendMessage />
     </div>
   );
 }
