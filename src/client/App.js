@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      {isLoggedIn ? (
+      {isLoggedIn && chatClient.user ? (
         `Welcome ${chatClient.user.id}`
       ) :
         <Login chatClient={chatClient} setLoggedIn={setLoggedIn} />
