@@ -1,0 +1,6 @@
+.channel-list-container {
+    border-right: 1px solid grey;
+    height: 100vh;
+    padding-right: 10px;
+    float: left;
+}
