@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { StreamChat } from "stream-chat";
 
-const SendMessage = () => {
+const SendMessage = ({ chatClient }) => {
   const apiKey = process.env["REACT_APP_KEY"];
-  const chatClient = StreamChat.getInstance(apiKey);
   const channel = chatClient.channel('messaging', 'channel-id-123')
   
   const [messageText, setMessageText] = useState('')
