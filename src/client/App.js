@@ -9,20 +9,16 @@ const chatClient = StreamChat.getInstance(apiKey);
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false)
 
-  if (!isLoggedIn) {
-    chatClient.disconnectUser()
-    .then(console.log("disconnected", chatClient));
+  if (!isLoggedIn && chatClient.user) {
+    chatClient.disconnectUser().then(console.log("disconnected", chatClient));
   }
 console.log(chatClient)
   return (
     <div className="App">
-      {isLoggedIn ? (
-        <div>
-        Welcome {chatClient.user.id}
-        <SendMessage />
-        </div>
+      {isLoggedIn && chatClient.user ? (
+        `Welcome ${chatClient.user.id}`
       ) :
-        <Login isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
+        <Login chatClient={chatClient} setLoggedIn={setLoggedIn} />
       }
       <button onClick={() => setLoggedIn(!isLoggedIn)}>disconnect</button>
     </div>
