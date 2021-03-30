@@ -1,19 +1,23 @@
 import React, { useState } from "react";
-import { StreamChat } from "stream-chat";
 
 const SendMessage = ({ chatClient }) => {
-  const apiKey = process.env["REACT_APP_KEY"];
-  const channel = chatClient.channel('messaging', 'channel-id-123')
-  
-  const [messageText, setMessageText] = useState('')
+  // should we define channel multiple times? -> it was first defined in createChannel
+  const channel = chatClient.channel("messaging", "channel-id-123");
+  const [messageText, setMessageText] = useState("");
   const send = (e) => {
-      e.preventDefault()
-    channel.sendMessage({text: messageText})
-  }
+    e.preventDefault();
+    channel.sendMessage({ text: messageText }).then(() => setMessageText(""));
+    // maybe look into error handling?
+  };
   return (
     <div>
       <form className="send-message-container" onSubmit={send}>
-        <input type="text" onChange={(e) => setMessageText(e.target.value)} placeholder="Type your message here"></input>
+        <input
+          value={messageText}
+          type="text"
+          onChange={(e) => setMessageText(e.target.value)}
+          placeholder="Type your message here"
+        ></input>
         <button>Send</button>
       </form>
     </div>
