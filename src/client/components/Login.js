@@ -1,21 +1,15 @@
 import axios from "axios";
-import { StreamChat } from "stream-chat";
 import React, { useState } from 'react';
 
-const apiKey = process.env["REACT_APP_KEY"];
-
-export default function Login({ setLoggedIn, isLoggedIn }) {
+export default function Login({ setLoggedIn, chatClient }) {
   const [userId, setUserId] = useState("");
 
   const handleChange = (e) => {
     setUserId(e.target.value);
   };
 
-  const chatClient = StreamChat.getInstance(apiKey);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
       .post("http://localhost:8000/token", { user_id: userId })
       .then((res) => chatClient.connectUser({ id: userId }, res.data))
