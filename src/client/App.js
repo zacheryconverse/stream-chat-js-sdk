@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { StreamChat } from "stream-chat";
 import "./App.css";
 import Login from "./components/Login";
+import MessageList from "./components/MessageList";
 import SendMessage from "./components/SendMessage/SendMessage";
-import ChannelList from "./components/ChannelList/ChannelList"
+import ChannelList from "./components/ChannelList/ChannelList";
 const apiKey = process.env["REACT_APP_KEY"];
 const chatClient = StreamChat.getInstance(apiKey);
 
@@ -14,18 +15,18 @@ function App() {
     chatClient.disconnectUser().then(console.log("disconnected", chatClient));
   }
 
-  console.log(chatClient);
   return (
     <div className="App">
       {isLoggedIn && chatClient.user ? (
-        <div>Welcome {chatClient.userID}
-        <ChannelList chatClient={chatClient} />
-        <SendMessage chatClient={chatClient} />
+        <div>
+          Welcome {chatClient.user.id}
+          <MessageList chatClient={chatClient} setLoggedIn={setLoggedIn} />
+          <SendMessage chatClient={chatClient} />
+          <button onClick={() => setLoggedIn(!isLoggedIn)}>Logout</button>
         </div>
       ) : (
         <Login chatClient={chatClient} setLoggedIn={setLoggedIn} />
       )}
-      <button  onClick={() => setLoggedIn(!isLoggedIn)}>disconnect</button>
     </div>
   );
 }
