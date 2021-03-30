@@ -1,19 +1,15 @@
 import axios from "axios";
 import { StreamChat } from "stream-chat";
+import React, { useState } from 'react';
 
 const apiKey = process.env["REACT_APP_KEY"];
 
-export default function Login({ setLogin, userId, setUserId, }) {
+export default function Login({ setLoggedIn, isLoggedIn }) {
+  const [userId, setUserId] = useState("");
+
   const handleChange = (e) => {
     setUserId(e.target.value);
   };
-
-  // const options = {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({ user_id: userId }),
-  // };
-  // fetch("http://localhost:8000/token", options)
 
   const chatClient = StreamChat.getInstance(apiKey);
 
@@ -22,9 +18,8 @@ export default function Login({ setLogin, userId, setUserId, }) {
 
     axios
       .post("http://localhost:8000/token", { user_id: userId })
-      // .then((result) => console.log(result.data))
       .then((res) => chatClient.connectUser({ id: userId }, res.data))
-      .then(() => setLogin(true))
+      .then(() => setLoggedIn(true))
       .then(() => console.log('chatClient', chatClient))
       .catch((err) => console.error("ERROR", err));
   };
@@ -44,6 +39,5 @@ export default function Login({ setLogin, userId, setUserId, }) {
       </form>
     </div>
   );
-  // module.exports = chatClient;
 }
-// export { chatClient }
+
