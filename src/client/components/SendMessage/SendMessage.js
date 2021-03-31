@@ -23,16 +23,11 @@ const SendMessage = ({ chatClient }) => {
     <div>
       <form className="send-message-container" onSubmit={send}>
         <input
+          className="send-message-input"
           value={messageText}
           type="text"
           onChange={(e) => setMessageText(e.target.value)}
           placeholder="Type your message here"
-          style={{
-            backgroundColor: "#FFE599",
-            minHeight: "8vh",
-            width: "80vw",
-            border: "1px solid"
-          }}
         ></input>
         <button>Send</button>
         <h3>{errorText}</h3>
