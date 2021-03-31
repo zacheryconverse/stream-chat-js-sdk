@@ -34,7 +34,7 @@ const SendMessage = ({ chatClient }) => {
             border: "1px solid"
           }}
         ></input>
-        <button>Send</button>
+        {/* <button>Send</button> */}
         <h3>{errorText}</h3>
       </form>
     </div>

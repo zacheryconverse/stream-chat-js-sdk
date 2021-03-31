@@ -26,11 +26,15 @@ button {
 }
 
 .Message-List {
-  min-height: 75vh;
+  min-height: 50vh;
   width: 80vw;
   border: solid 1px;
   background-color: #D9EAD3;
   margin: 10px;
+}
+
+.messages {
+  list-style-type: none;
 }
 
 /* .send-message-container {
