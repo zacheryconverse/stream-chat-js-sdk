@@ -19,17 +19,18 @@ export default function Login({ setLoggedIn, chatClient }) {
   };
 
   return (
-    <div>
+    <div className="Login">
       <form onSubmit={handleSubmit}>
-        <label>Enter a UserId</label>
+        <label>Enter a UserId: </label>
         <input
+          style={{ backgroundColor: "#E7B8AF" }}
           type="text"
           name="userId"
           value={userId}
           placeholder="Enter a UserId..."
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">⬆</button>
       </form>
     </div>
   );
