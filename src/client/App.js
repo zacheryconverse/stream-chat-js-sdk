@@ -20,6 +20,7 @@ function App() {
       {isLoggedIn && chatClient.user ? (
         <div>
           Welcome {chatClient.user.id}
+          <ChannelList chatClient={chatClient} />
           <MessageList chatClient={chatClient} setLoggedIn={setLoggedIn} />
           <SendMessage chatClient={chatClient} />
           <button onClick={() => setLoggedIn(!isLoggedIn)}>Logout</button>
