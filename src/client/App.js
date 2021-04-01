@@ -10,14 +10,12 @@ const chatClient = StreamChat.getInstance(apiKey);
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
-
   const [activeChannel, setActiveChannel] = useState("channel-id-123");
   // hardcode this channel by default, but we could possibly implement some logic to make the active channel the most recently updated or something
-
+  
   if (!isLoggedIn && chatClient.user) {
     chatClient.disconnectUser().then(console.log("disconnected"));
   }
-
   return (
     <div className="App">
       {isLoggedIn && chatClient.user ? (

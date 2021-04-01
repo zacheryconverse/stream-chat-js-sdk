@@ -1,11 +1,16 @@
 import React from "react";
 import "./Channel.css";
-const Channel = ({ channelList }) => {
+const Channel = ({ channelList, chatClient, setActiveChannel, deleteChannel }) => {
+
+
   if (channelList.length) {
     const renderChannelItems = () => {
       return channelList.map((channel) => (
-        <div className="channel-container">
-          <h2>{channel.id}</h2>
+        <div className="channel-container" key={channel.id} onClick={() => setActiveChannel(channel.id)}>
+          <div className="channel-upper">
+            <p>{channel.id}</p>
+            <p className="delete-channel" onClick={() => deleteChannel(channel.id)}> Delete</p>
+          </div>
           {!channel.state.messages.length ? (
             <p>No messages yet</p>
           ) : (

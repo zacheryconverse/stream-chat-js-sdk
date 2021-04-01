@@ -5,17 +5,17 @@ import "./ChannelList.css";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState('');
-  
+  const filter = { type: "messaging", members: { $in: ['Zachery', 'Cody'] } };
+  const sort = [{ last_message_at: -1 }];
+
   useEffect(() => {
-      const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
-      const sort = [{ last_message_at: -1 }];
     chatClient
       .queryChannels(filter, sort, {
         watch: true,
         state: true,
       })
       .then((r) => setChannelList(r));
-  }, [chatClient]);
+  }, [], filter, sort);
 
   const createChannel = async (e) => {
       e.preventDefault()
@@ -23,13 +23,27 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         members: ['Cody', 'Zachery'],
         name: 'This channel was created client-side'
       });
-      await channel.create().then(r => console.log(r));
+      await channel.create()
+      await chatClient
+        .queryChannels(filter, sort, {
+          watch: true,
+          state: true,
+        })
+        .then((r) => setChannelList(r));
   }
+  const deleteChannel = async (channelid) => {
+      const channel = chatClient.channel('messaging', channelid)
+      await channel.delete()
+      setChannelList(channelList.filter(channel => channel.id !== channelid))
+      console.log('hey')
+    };
+
+
   return (
     <div className="channel-list-container">
       <div className="channel-list">
         All Channels
-        <Channel channelList={channelList} />
+        <Channel setActiveChannel={setActiveChannel} channelList={channelList} deleteChannel={deleteChannel} chatClient={chatClient} />
       </div>
       <div className="create-channel-area">
         Create a channel named: 
