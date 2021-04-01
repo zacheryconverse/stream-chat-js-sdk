@@ -21,7 +21,7 @@
   grid-area: welcome;
   font-size: 2em;
   font-weight: bold;
-  margin-top: 1%;
+  margin: 1% 1%;
 }
 .Login {
   border: solid 1px;
@@ -42,10 +42,11 @@ button {
 .Message-List {
   height: 70vh;
   overflow: scroll;
-  width: 80vw;
+  width: 70vw;
   border: solid 1px;
   background-color: #D9EAD3;
   grid-area: message-list;
+  margin: 10px;
 }
 
 .logout-btn {

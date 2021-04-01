@@ -1,13 +1,13 @@
 .send-message-container {
-    margin: auto;
+    margin: 1%;
     grid-area: send;
     height: 10px;
   }
-  
+
   .send-message-input {
       border-radius: 10px;
       background-color: #FFE599;
-      min-height: 4vh;
+      min-height: 10vh;
       width: 90%;
       border: 1px solid
   }
