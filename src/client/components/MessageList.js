@@ -32,7 +32,7 @@ export default function MessageList({ chatClient }) {
       <ul className="messages">
         {messages
           ? messages.map((message, i) => (
-              <li key={message.id}> {message.html + "\n"} </li>
+              <li key={message.id}> {message.text + "\n"} </li>
             ))
           : ""}
       </ul>

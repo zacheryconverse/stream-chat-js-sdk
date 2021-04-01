@@ -4,7 +4,6 @@ import "./App.css";
 import SendMessage from './components/SendMessage/SendMessage'
 import Login from "./components/Login";
 import MessageList from "./components/MessageList";
-import SendMessage from "./components/SendMessage/SendMessage";
 import ChannelList from "./components/ChannelList/ChannelList";
 const apiKey = process.env["REACT_APP_KEY"];
 const chatClient = StreamChat.getInstance(apiKey);
