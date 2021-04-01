@@ -17,12 +17,12 @@ export default function MessageList({ chatClient }) {
       //   console.log("Start Channel", e);
       //   console.log("Channel State", channel.state.messages);
       // });
-      scrollToBottom();
+      await scrollToBottom();
       channel.on("message.new", (e) => {
         console.log("New Message", e);
         console.log("Channel State", channel.state);
         setMessages(channel.state.messages);
-        // change to optimistic render in sendMessage??
+        // ^^ change to optimistic render in sendMessage??
       });
     };
     fetchMessages();

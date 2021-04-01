@@ -18,6 +18,7 @@ export default function Login({ setLoggedIn, chatClient }) {
       <form onSubmit={handleSubmit}>
         <label>Enter a UserId: </label>
         <input
+          autoFocus
           style={{ backgroundColor: "#E7B8AF" }}
           type="text"
           name="userId"
