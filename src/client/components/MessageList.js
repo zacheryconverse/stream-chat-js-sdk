@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
+import Header from "./Header";
 
 export default function MessageList({ chatClient }) {
+  const [res, setRes] = useState("");
   const [messages, setMessages] = useState("");
   const messagesEndRef = useRef(null);
   const channel = chatClient.channel("messaging", "channel-id-123");
@@ -21,6 +23,7 @@ export default function MessageList({ chatClient }) {
     const fetchMessages = async () => {
       const response = await channel.watch();
       await setMessages(response.messages);
+      await setRes(response);
       // chatClient.on("user.watching.start", (e) => {
       //   console.log("Start Channel", e);
       //   console.log("Channel State", channel.state.messages);
@@ -38,6 +41,7 @@ export default function MessageList({ chatClient }) {
 
   return (
     <div className="Message-List">
+      <Header chatClient={chatClient} channel={chatClient} res={res} />
       <ul className="messages">
         {messages
           ? messages.map((message, i) => (
@@ -45,7 +49,9 @@ export default function MessageList({ chatClient }) {
                 <li>{`${message.text}\n`}</li>
                 <ul>
                   <li style={{ fontSize: "small", listStyleType: "none" }}>
-                    {`${message.user.id} on ${getFormattedDate(new Date(message.created_at))}`}
+                    {`${message.user.id} on ${getFormattedDate(
+                      new Date(message.created_at)
+                    )}`}
                   </li>
                 </ul>
                 <div ref={messagesEndRef}></div>

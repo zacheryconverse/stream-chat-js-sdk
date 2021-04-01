@@ -5,7 +5,7 @@
   margin: 80px 40px;
   float: left;
   grid-area: channels;
-  height: 85vh;
+  height: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
