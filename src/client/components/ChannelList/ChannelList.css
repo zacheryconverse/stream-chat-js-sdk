@@ -1,6 +1,12 @@
 .channel-list-container {
-    border-right: 1px solid grey;
-    height: 100vh;
-    padding-right: 10px;
-    float: left;
+  border: 1px solid;
+  background-color: #ead1db;
+  padding: 10px;
+  margin: 80px 40px;
+  float: left;
+  grid-area: channels;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
