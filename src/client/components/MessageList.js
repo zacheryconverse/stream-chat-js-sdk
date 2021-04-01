@@ -9,6 +9,14 @@ export default function MessageList({ chatClient }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  function getFormattedDate(date) {
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, "0");
+    let day = date.getDate().toString().padStart(2, "0");
+
+    return month + "/" + day + "/" + year;
+  }
+
   useEffect(() => {
     const fetchMessages = async () => {
       const response = await channel.watch();
@@ -30,13 +38,17 @@ export default function MessageList({ chatClient }) {
 
   return (
     <div className="Message-List">
-      MessageList
       <ul className="messages">
         {messages
           ? messages.map((message, i) => (
-              <Fragment>
-                <li key={message.id}>{message.text + "\n"}</li>
-                <div ref={messagesEndRef} />
+              <Fragment key={message.id}>
+                <li>{`${message.text}\n`}</li>
+                <ul>
+                  <li style={{ fontSize: "small", listStyleType: "none" }}>
+                    {`${message.user.id} on ${getFormattedDate(new Date(message.created_at))}`}
+                  </li>
+                </ul>
+                <div ref={messagesEndRef}></div>
               </Fragment>
             ))
           : ""}
