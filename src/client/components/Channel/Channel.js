@@ -9,7 +9,7 @@ const Channel = ({ channelList, chatClient, setActiveChannel }) => {
   if (channelList.length) {
     const renderChannelItems = () => {
       return channelList.map((channel) => (
-        <div className="channel-container" onClick={() => setActiveChannel(channel.id)}>
+        <div className="channel-container" key={channel.id} onClick={() => setActiveChannel(channel.id)}>
           <div className="channel-upper">
             <p>{channel.id}</p>
             <p className="delete-channel" onClick={() => deleteChannel(channel.id)}> Delete</p>
