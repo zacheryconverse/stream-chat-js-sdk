@@ -1,9 +1,7 @@
 import React from "react";
 import "./Channel.css";
 const Channel = ({ channelList }) => {
-  console.log(channelList);
   if (channelList.length) {
-    console.log(channelList);
     const renderChannelItems = () => {
       return channelList.map((channel) => (
         <div className="channel-container">

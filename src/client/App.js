@@ -17,7 +17,7 @@ function App() {
   if (!isLoggedIn && chatClient.user) {
     chatClient.disconnectUser().then(console.log("disconnected"));
   }
-  console.log(chatClient);
+
   return (
     <div className="App">
       {isLoggedIn && chatClient.user ? (

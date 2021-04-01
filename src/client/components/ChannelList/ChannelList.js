@@ -5,17 +5,17 @@ import "./ChannelList.css";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState('');
-  const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
-  const sort = [{ last_message_at: -1 }];
-
+  
   useEffect(() => {
-    const channels = chatClient
+      const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
+      const sort = [{ last_message_at: -1 }];
+    chatClient
       .queryChannels(filter, sort, {
         watch: true,
         state: true,
       })
       .then((r) => setChannelList(r));
-  }, []);
+  }, [chatClient]);
 
   const createChannel = async (e) => {
       e.preventDefault()
