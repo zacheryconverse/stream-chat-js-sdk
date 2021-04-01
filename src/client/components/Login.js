@@ -1,21 +1,15 @@
 import axios from "axios";
-import { StreamChat } from "stream-chat";
 import React, { useState } from 'react';
 
-const apiKey = process.env["REACT_APP_KEY"];
-
-export default function Login({ setLoggedIn, isLoggedIn }) {
+export default function Login({ setLoggedIn, chatClient }) {
   const [userId, setUserId] = useState("");
 
   const handleChange = (e) => {
     setUserId(e.target.value);
   };
 
-  const chatClient = StreamChat.getInstance(apiKey);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
       .post("http://localhost:8000/token", { user_id: userId })
       .then((res) => chatClient.connectUser({ id: userId }, res.data))
@@ -25,17 +19,18 @@ export default function Login({ setLoggedIn, isLoggedIn }) {
   };
 
   return (
-    <div>
+    <div className="Login">
       <form onSubmit={handleSubmit}>
-        <label>Enter a UserId</label>
+        <label>Enter a UserId: </label>
         <input
+          style={{ backgroundColor: "#E7B8AF" }}
           type="text"
           name="userId"
           value={userId}
           placeholder="Enter a UserId..."
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">⬆</button>
       </form>
     </div>
   );
