@@ -1,10 +1,7 @@
 import React from "react";
 import "./Channel.css";
-const Channel = ({ channelList, chatClient, setActiveChannel }) => {
-  const deleteChannel = async (channelid) => {
-      const channel = chatClient.channel('messaging', channelid)
-      await channel.delete()
-  };
+const Channel = ({ channelList, chatClient, setActiveChannel, deleteChannel }) => {
+
 
   if (channelList.length) {
     const renderChannelItems = () => {
