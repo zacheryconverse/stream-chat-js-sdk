@@ -1,3 +1,14 @@
 .channel-container {
     border-bottom: 1px solid grey;
 }
+
+.channel-upper {
+    display: flex;
+    justify-content: space-between;
+    /* margin: auto; */
+}
+
+.delete-channel {
+    color: red;
+    cursor: pointer;
+}
