@@ -7,38 +7,42 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
   const filter = { type: "messaging", members: { $in: ["Zachery", "Cody"] } };
+  //change filter to member who is currently logged in
   const sort = [{ last_message_at: -1 }];
 
   useEffect(
     () => {
       chatClient
-        .queryChannels(filter, sort, {
-          watch: true,
-          state: true,
-        })
+        .queryChannels(filter, sort)
         .then((r) => setChannelList(r));
     },
     []
   );
 
+//set limits
   const createChannel = async (e) => {
     e.preventDefault();
     const channel = chatClient.channel("messaging", newChannelName, {
       members: ["Cody", "Zachery"],
       name: "This channel was created client-side",
     });
-    await channel.create();
-    await chatClient
-      .queryChannels(filter, sort, {
-        watch: true,
-        state: true,
-      })
-      .then((r) => setChannelList(r));
+    await channel.watch()
+    const created = chatClient.channel("messaging", newChannelName)
+    setChannelList([...channelList, created])
   };
+
+
+//   trigger use effect ^^
+  //look back at notification.added_to_channel
+  //create client.on event handler? 
+
   const deleteChannel = async (channelid) => {
     const channel = chatClient.channel("messaging", channelid);
     await channel.delete();
     setChannelList(channelList.filter((channel) => channel.id !== channelid));
+    // could trigger useeffect on this as well ^
+    // listen for channel.deleted so another user can delete and update dynamically
+    // only render delete if the current user is the owner
   };
 
   const renderChannelComponent = () => {
