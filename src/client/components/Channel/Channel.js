@@ -9,7 +9,7 @@ const Channel = ({
   messages,
   channel,
 }) => {
-  const [mostRecentMsg, setMostRecentMsg] = useState([messages[messages.length - 1].user.id, messages[messages.length - 1].text])
+  const [mostRecentMsg, setMostRecentMsg] = useState(messages.length ? [messages[messages.length - 1].user.id, messages[messages.length - 1].text] : 'No Messages Yet')
   channel.on('message.new', e => setMostRecentMsg([e.user.id, e.message.text] ))
 
   return (
