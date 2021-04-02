@@ -6,25 +6,17 @@ import "./ChannelList.css";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
-  const filter = { type: "messaging", members: { $in: ["Zachery", "Cody"] } };
+  const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
   const sort = [{ last_message_at: -1 }];
 
-  useEffect(
-    () => {
-      chatClient
-        .queryChannels(filter, sort, {
-          watch: true,
-          state: true,
-        })
-        .then((r) => setChannelList(r));
-    },
-    []
-  );
+  useEffect(() => {
+    chatClient.queryChannels(filter, sort).then((r) => setChannelList(r));
+  }, []);
 
   const createChannel = async (e) => {
     e.preventDefault();
     const channel = chatClient.channel("messaging", newChannelName, {
-      members: ["Cody", "Zachery"],
+      members: [chatClient.userID],
       name: "This channel was created client-side",
     });
     await channel.create();
@@ -57,13 +49,13 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         );
       });
     }
-    return 'Loading'
+    return "Loading";
   };
   return (
     <div className="channel-list-container">
       <div className="channel-list">
         All Channels
-       {renderChannelComponent()}
+        {renderChannelComponent()}
       </div>
       <div className="create-channel-area">
         Create a channel named:

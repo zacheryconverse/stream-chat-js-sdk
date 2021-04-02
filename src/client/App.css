@@ -47,7 +47,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20vh 20vw;
+  margin: 10px;
   width: 65vw;
   border: solid 1px;
   background-color: #d9ead3;

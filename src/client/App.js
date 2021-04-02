@@ -24,10 +24,10 @@ function App() {
       {isLoggedIn && chatClient.user ? (
         <div className="container">
           <div className="welcome"></div>
-          {/* <ChannelList
+          <ChannelList
             chatClient={chatClient}
             setActiveChannel={setActiveChannel}
-          /> */}
+          />
           {/* <MessageList chatClient={chatClient} setLoggedIn={setLoggedIn} /> */}
           <NewUser client={chatClient} />
           {/* <SendMessage chatClient={chatClient} /> */}
