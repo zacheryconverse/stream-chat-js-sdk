@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Channel from "../Channel/Channel";
 import "./ChannelList.css";
@@ -17,9 +18,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         })
         .then((r) => setChannelList(r));
     },
-    [],
-    filter,
-    sort
+    []
   );
 
   const createChannel = async (e) => {
