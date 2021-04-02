@@ -1,5 +1,7 @@
 .channel-container {
     border-bottom: 1px solid grey;
+    grid-area: channels;
+
 }
 
 .channel-upper {
