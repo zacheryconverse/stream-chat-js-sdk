@@ -83,13 +83,7 @@ button {
 }
 
 .my-message {
-  /* margin-left: 45vh; */
-  display: flex;
-  /* align-items: flex-end; */
-  /* flex-direction: column;
-  position: flex-end; */
   justify-content: flex-start;
-  /* align-self: flex-end; */
   background-color: #35C95A;
   border-bottom-right-radius: 0;
   margin-left: auto;
@@ -102,13 +96,11 @@ button {
 }
 
 .me {
-  /* margin-left: auto; */
-  margin-left: 48vw;
-  /* justify-content: flex-end; */
+  margin-left: 40vw;
 }
 
 .not-me {
-  margin-left: 7vh;
+  /* margin-left: 2vh; */
 }
 
 .send-message {
