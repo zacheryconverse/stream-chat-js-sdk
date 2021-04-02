@@ -1,12 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { StreamChat } from "stream-chat";
 import "./App.css";
 import SendMessage from "./components/SendMessage/SendMessage";
 import Login from "./components/Login";
 import MessageList from "./components/MessageList";
 import ChannelList from "./components/ChannelList/ChannelList";
+import NewUser from "./components/NewUser";
 const apiKey = process.env["REACT_APP_KEY"];
 const chatClient = StreamChat.getInstance(apiKey);
+const ClientContext = React.createContext(chatClient);
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -17,16 +19,18 @@ function App() {
     chatClient.disconnectUser().then(console.log("disconnected"));
   }
   return (
+    // <ClientContext.Provider value="client">
     <div className="App">
       {isLoggedIn && chatClient.user ? (
         <div className="container">
           <div className="welcome"></div>
-          <ChannelList
+          {/* <ChannelList
             chatClient={chatClient}
             setActiveChannel={setActiveChannel}
-          />
-          <MessageList chatClient={chatClient} setLoggedIn={setLoggedIn} />
-          <SendMessage chatClient={chatClient} />
+          /> */}
+          {/* <MessageList chatClient={chatClient} setLoggedIn={setLoggedIn} /> */}
+          <NewUser client={chatClient} />
+          {/* <SendMessage chatClient={chatClient} /> */}
           <button
             className="logout-btn"
             onClick={() => setLoggedIn(!isLoggedIn)}
@@ -38,6 +42,7 @@ function App() {
         <Login chatClient={chatClient} setLoggedIn={setLoggedIn} />
       )}
     </div>
+    // </ClientContext.Provider>
   );
 }
 

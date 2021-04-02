@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
+import SendMessage from './SendMessage/SendMessage';
 
 export default function MessageList({ chatClient }) {
   const [channelResult, setChannelResult] = useState("");
@@ -55,15 +56,28 @@ export default function MessageList({ chatClient }) {
         {messages
           ? messages.map((message, i) => (
               <Fragment key={message.id}>
-                <li className={`${checkIfMe(message)} message`}>{`${message.text}\n`}</li>
-                <ul className={checkIfMe(message) === 'my-message'? 'me' : 'not-me'}>
-                  <li style={{ fontSize: "small", listStyleType: "none", border: '0' }}>
+                <li
+                  className={`${checkIfMe(message)} message`}
+                >{`${message.text}\n`}</li>
+                <ul
+                  className={
+                    checkIfMe(message) === "my-message" ? "me" : "not-me"
+                  }
+                >
+                  <li
+                    style={{
+                      fontSize: "small",
+                      listStyleType: "none",
+                      border: "0",
+                    }}
+                  >
                     {`${message.user.id} on ${getFormattedDate(
                       new Date(message.created_at)
                     )}`}
                   </li>
                 </ul>
                 <div ref={messagesEndRef}></div>
+                <SendMessage chatClient={chatClient} />
               </Fragment>
             ))
           : ""}
