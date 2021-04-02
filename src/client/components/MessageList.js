@@ -39,16 +39,25 @@ export default function MessageList({ chatClient }) {
     fetchMessages();
   }, [channel, chatClient]);
 
+  const checkIfMe = (message) => {
+    if (message.user.id === chatClient.userID) return 'my-message';
+    else return 'not-my-message';
+  }
+
   return (
     <div className="Message-List">
-      <Header chatClient={chatClient} channel={chatClient} channelResult={channelResult} />
+      <Header
+        chatClient={chatClient}
+        channel={chatClient}
+        channelResult={channelResult}
+      />
       <ul className="messages">
         {messages
           ? messages.map((message, i) => (
               <Fragment key={message.id}>
-                <li>{`${message.text}\n`}</li>
-                <ul>
-                  <li style={{ fontSize: "small", listStyleType: "none" }}>
+                <li className={`${checkIfMe(message)} message`}>{`${message.text}\n`}</li>
+                <ul className={checkIfMe(message) === 'my-message'? 'me' : 'not-me'}>
+                  <li style={{ fontSize: "small", listStyleType: "none", border: '0' }}>
                     {`${message.user.id} on ${getFormattedDate(
                       new Date(message.created_at)
                     )}`}
