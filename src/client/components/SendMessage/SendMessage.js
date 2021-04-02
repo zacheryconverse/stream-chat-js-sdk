@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SendMessage.css"
+import "./SendMessage.css";
 const SendMessage = ({ chatClient }) => {
   const channel = chatClient.channel("messaging", "channel-id-123");
   const [messageText, setMessageText] = useState("");
@@ -29,7 +29,7 @@ const SendMessage = ({ chatClient }) => {
           onChange={(e) => setMessageText(e.target.value)}
           placeholder="Type your message here"
         ></input>
-        <button>Send</button>
+        <button className="send-message">Send</button>
         <h3>{errorText}</h3>
       </form>
     </div>

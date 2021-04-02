@@ -1,11 +1,11 @@
 body {
-  background-color: #D0E2F2;
+  background-color: #d0e2f2;
   margin: 0;
 }
 
 .App {
   font-size: calc(5px + 2vmin);
-  font-family: "Helvetica"
+  font-family: "Helvetica";
 }
 
 .container {
@@ -13,7 +13,7 @@ body {
   grid-template-columns: 1fr 3fr;
   grid-template-rows: 0.5fr 4fr 1fr;
   grid-template-areas:
-  "channels welcome welcome welcome"
+    "channels welcome welcome welcome"
     "channels message-list message-list message-list"
     "channels send send send";
 }
@@ -26,7 +26,7 @@ body {
   border: solid 1px;
   max-width: 20vw;
   min-height: 20vh;
-  background-color: #A4C1F4;
+  background-color: #a4c1f4;
   display: flex;
   align-items: center;
   margin: auto;
@@ -43,7 +43,7 @@ button {
   min-height: 10vh;
   min-width: 65vw;
   border-bottom: solid 1px;
-  background-color: #ECF3FF;
+  background-color: #ecf3ff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +60,7 @@ button {
   overflow: scroll;
   width: 65vw;
   border: solid 1px;
-  background-color: #D9EAD3;
+  background-color: #d9ead3;
   grid-area: message-list;
   margin: 10px;
 }
@@ -69,13 +69,47 @@ button {
   list-style-type: none;
 }
 
+.message {
+  border: 1px solid;
+  border-radius: 10px;
+  width: 20vw;
+  padding: 2px;
+  font-size: .8em;
+}
+
+.my-message {
+  margin-left: 45vh;
+  background-color: #35C95A;
+}
+
+.me {
+  margin-left: 50vh;
+}
+
+.not-me {
+  margin-left: 7vh;
+}
+
+.not-my-message {
+  background-color: #F9CB9C;
+}
+
+.send-message {
+  height: 80px;
+  border: 1px solid;
+  border-left: 0;
+  background-color: #ffe599;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .logout-btn {
   background-color: rgb(50, 115, 255);
   color: white;
   width: 80px;
   height: 30px;
   border-radius: 90px;
-  margin: 20px;
+  margin: 30px;
 }
 
 /* .send-message-container {
