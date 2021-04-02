@@ -1,29 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import AddMember from '../AddMember';
 import "./Channel.css";
-const Channel = ({ channelList }) => {
-  if (channelList.length) {
-    const renderChannelItems = () => {
-      return channelList.map((channel) => (
-        <div className="channel-container">
-          <h2>{channel.id}</h2>
-          {!channel.state.messages.length ? (
-            <p>No messages yet</p>
-          ) : (
-            <p>
-              {
-                channel.state.messages[channel.state.messages.length - 1].user
-                  .id
-              }
-              : {channel.state.messages[channel.state.messages.length - 1].text}
-            </p>
-          )}
-        </div>
-      ));
-    };
-    return <div>{renderChannelItems()}</div>;
-  } else {
-    return "Loading";
-  }
+const Channel = ({
+  channelName,
+  chatClient,
+  setActiveChannel,
+  deleteChannel,
+  id,
+  messages,
+  channel,
+}) => {
+  const [mostRecentMsg, setMostRecentMsg] = useState(messages.length ? [messages[messages.length - 1].user.id, messages[messages.length - 1].text] : 'No Messages Yet')
+  channel.on('message.new', e => setMostRecentMsg([e.user.id, e.message.text] ))
+
+  return (
+    <div
+      className="channel-container"
+      key={channelName}
+      onClick={() => setActiveChannel(channelName)}
+    >
+      <div className="channel-upper">
+        <p>{channelName}</p>
+        <AddMember chatClient={chatClient} channel={channel} />
+        <p
+          className="delete-channel"
+          onClick={() => deleteChannel(channelName)}
+        >
+          {" "}
+          Delete
+        </p>
+      </div>
+      {!messages.length ? (
+        <p>No messages yet</p>
+      ) : (
+        <p>
+          {mostRecentMsg[0]}:{" "}
+          {mostRecentMsg[1]}
+        </p>
+      )}
+    </div>
+  );
 };
 
 export default Channel;
