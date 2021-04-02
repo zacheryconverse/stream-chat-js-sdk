@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddMember from '../AddMember';
 import "./Channel.css";
 const Channel = ({
   channelName,
@@ -20,6 +21,7 @@ const Channel = ({
     >
       <div className="channel-upper">
         <p>{channelName}</p>
+        <AddMember chatClient={chatClient} channel={channel} />
         <p
           className="delete-channel"
           onClick={() => deleteChannel(channelName)}

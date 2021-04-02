@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 
 export default function Header({ chatClient, channel, channelResult }) {
   const [online, setOnline] = useState(0);
+
   const getOnlineCount = (members) => {
-    let online = 0;
-    members.forEach((member) => {
-      if (member.user.online) online++;
-    });
-    return online;
+    return members.reduce((a, c) => {
+      return a+= c.user.online;
+    }, 0);
   };
+
   // useEffect(() => {
   //   getOnlineCount(channelResult.members)
   // }, [online])
+  channel.on('member.added', e => {
+    console.log(e);
+  })
 
   return (
     <div className="Header">

@@ -52,6 +52,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
             setActiveChannel={setActiveChannel}
             key={channel.id}
             channel={channel}
+            chatClient={chatClient}
           />
         );
       });
