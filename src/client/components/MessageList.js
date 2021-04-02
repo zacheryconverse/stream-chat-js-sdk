@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
 
 export default function MessageList({ chatClient }) {
-  const [res, setRes] = useState("");
+  const [channelResult, setChannelResult] = useState("");
   const [messages, setMessages] = useState("");
   const messagesEndRef = useRef(null);
   const channel = chatClient.channel("messaging", "channel-id-123");
@@ -23,7 +23,7 @@ export default function MessageList({ chatClient }) {
     const fetchMessages = async () => {
       const response = await channel.watch();
       await setMessages(response.messages);
-      await setRes(response);
+      await setChannelResult(response);
       // chatClient.on("user.watching.start", (e) => {
       //   console.log("Start Channel", e);
       //   console.log("Channel State", channel.state.messages);
@@ -41,7 +41,7 @@ export default function MessageList({ chatClient }) {
 
   return (
     <div className="Message-List">
-      <Header chatClient={chatClient} channel={chatClient} res={res} />
+      <Header chatClient={chatClient} channel={chatClient} channelResult={channelResult} />
       <ul className="messages">
         {messages
           ? messages.map((message, i) => (
