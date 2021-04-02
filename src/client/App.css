@@ -1,8 +1,9 @@
-.App {
+body {
   background-color: #D0E2F2;
+}
+
+.App {
   font-size: calc(5px + 2vmin);
-  min-height: 100vh;
-  border: 1px solid;
   font-family: "Helvetica"
 }
 
@@ -15,14 +16,11 @@
     "channels message-list message-list message-list"
     "channels send send send";
 }
+
 .welcome {
-  display: flex;
-  justify-content: space-between;
   grid-area: welcome;
-  font-size: 2em;
-  font-weight: bold;
-  margin: 1% 1%;
 }
+
 .Login {
   border: solid 1px;
   max-width: 20vw;
@@ -39,14 +37,29 @@ button {
   cursor: pointer;
 }
 
+.Header {
+  position: fixed;
+  min-height: 10vh;
+  min-width: 65vw;
+  border-bottom: solid 1px;
+  background-color: #ECF3FF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .Message-List {
-  height: 70vh;
+  height: 65vh;
   overflow: scroll;
-  width: 70vw;
+  width: 65vw;
   border: solid 1px;
   background-color: #D9EAD3;
   grid-area: message-list;
   margin: 10px;
+}
+
+.messages {
+  list-style-type: none;
 }
 
 .logout-btn {
@@ -55,10 +68,6 @@ button {
   width: 80px;
   height: 30px;
   border-radius: 90px;
-}
-
-.messages {
-  list-style-type: none;
 }
 
 /* .send-message-container {
