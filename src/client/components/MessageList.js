@@ -2,11 +2,12 @@ import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
 import SendMessage from './SendMessage/SendMessage';
 
-export default function MessageList({ chatClient }) {
+export default function MessageList({ chatClient, active }) {
   const [channelResult, setChannelResult] = useState("");
   const [messages, setMessages] = useState("");
   const messagesEndRef = useRef(null);
-  const channel = chatClient.channel("messaging", "channel-id-123");
+  // const channel = chatClient.channel("messaging", "channel-id-123");
+  const channel = chatClient.channel("messaging", active);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,7 +39,7 @@ export default function MessageList({ chatClient }) {
       });
     };
     fetchMessages();
-  }, [channel, chatClient]);
+  }, [channel, chatClient, active]);
 
   const checkIfMe = (message) => {
     if (message.user.id === chatClient.userID) return 'my-message';
@@ -77,7 +78,7 @@ export default function MessageList({ chatClient }) {
                   </li>
                 </ul>
                 <div ref={messagesEndRef}></div>
-                <SendMessage chatClient={chatClient} />
+                {/* <SendMessage chatClient={chatClient} /> */}
               </Fragment>
             ))
           : ""}

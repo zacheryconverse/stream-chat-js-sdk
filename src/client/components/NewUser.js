@@ -5,7 +5,7 @@ export default function NewUser({ chatClient }) {
   // console.log(context);
   return (
     <div className="New-user">
-      Join a channel to start the fun
+      Join or select a channel
     </div>
   )
 };

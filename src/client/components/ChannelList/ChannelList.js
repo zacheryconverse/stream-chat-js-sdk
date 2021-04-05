@@ -6,6 +6,7 @@ import "./ChannelList.css";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
+  // const filter = { type: "messaging" };
   const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
   const sort = [{ last_message_at: -1 }];
 
@@ -54,7 +55,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   return (
     <div className="channel-list-container">
       <div className="channel-list">
-        All Channels
+        <h3 className="channel-list_header">All Channels</h3>
         {renderChannelComponent()}
       </div>
       <div className="create-channel-area">
