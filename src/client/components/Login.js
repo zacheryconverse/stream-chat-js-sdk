@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from 'react';
+import { useState } from "react";
 
 export default function Login({ setLoggedIn, chatClient }) {
   const [userId, setUserId] = useState("");
@@ -10,6 +10,7 @@ export default function Login({ setLoggedIn, chatClient }) {
       .post("http://localhost:8000/token", { user_id: userId })
       .then((res) => chatClient.connectUser({ id: userId }, res.data))
       .then(() => setLoggedIn(true))
+      .then(() => localStorage.setItem("userId", userId))
       .catch((err) => console.error("ERROR", err));
   };
 
@@ -31,4 +32,3 @@ export default function Login({ setLoggedIn, chatClient }) {
     </div>
   );
 }
-

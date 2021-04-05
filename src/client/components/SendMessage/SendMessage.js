@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./SendMessage.css";
-const SendMessage = ({ chatClient }) => {
-  const channel = chatClient.channel("messaging", "channel-id-123");
+const SendMessage = ({ chatClient, active }) => {
+  const channel = chatClient.channel("messaging", active);
   const [messageText, setMessageText] = useState("");
   const [errorText, setErrorText] = useState("");
 

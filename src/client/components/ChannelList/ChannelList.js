@@ -19,11 +19,12 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     getChannels();
   }, [chatClient]);
 
+
   //set limits
   const createChannel = (e) => {
     e.preventDefault();
     const channel = chatClient.channel("messaging", newChannelName, {
-      members: ["Cody", "Zachery"],
+      members: [chatClient.userID],
       name: "This channel was created client-side",
       created_by: {id: chatClient.userID}
     });
@@ -78,7 +79,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   return (
     <div className="channel-list-container">
       <div className="channel-list">
-        All Channels
+    All Channels
         {renderChannelComponent()}
       </div>
       <div className="create-channel-area">

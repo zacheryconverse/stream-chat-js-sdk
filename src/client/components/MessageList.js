@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
+import SendMessage from './SendMessage/SendMessage';
 
-export default function MessageList({ chatClient }) {
+export default function MessageList({ chatClient, active }) {
   const [channelResult, setChannelResult] = useState("");
   const [messages, setMessages] = useState("");
   const messagesEndRef = useRef(null);
-  const channel = chatClient.channel("messaging", "channel-id-123");
+  // const channel = chatClient.channel("messaging", "channel-id-123");
+  const channel = chatClient.channel("messaging", active);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -37,7 +39,7 @@ export default function MessageList({ chatClient }) {
       });
     };
     fetchMessages();
-  }, [channel, chatClient]);
+  }, [channel, chatClient, active]);
 
   const checkIfMe = (message) => {
     if (message.user.id === chatClient.userID) return 'my-message';
@@ -55,15 +57,28 @@ export default function MessageList({ chatClient }) {
         {messages
           ? messages.map((message, i) => (
               <Fragment key={message.id}>
-                <li className={`${checkIfMe(message)} message`}>{`${message.text}\n`}</li>
-                <ul className={checkIfMe(message) === 'my-message'? 'me' : 'not-me'}>
-                  <li style={{ fontSize: "small", listStyleType: "none", border: '0' }}>
+                <li
+                  className={`${checkIfMe(message)} message`}
+                >{`${message.text}\n`}</li>
+                <ul
+                  className={
+                    checkIfMe(message) === "my-message" ? "me" : "not-me"
+                  }
+                >
+                  <li
+                    style={{
+                      fontSize: "small",
+                      listStyleType: "none",
+                      border: "0",
+                    }}
+                  >
                     {`${message.user.id} on ${getFormattedDate(
                       new Date(message.created_at)
                     )}`}
                   </li>
                 </ul>
                 <div ref={messagesEndRef}></div>
+                {/* <SendMessage chatClient={chatClient} /> */}
               </Fragment>
             ))
           : ""}

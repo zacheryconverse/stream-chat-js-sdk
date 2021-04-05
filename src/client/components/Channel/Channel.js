@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddMember from '../AddMember';
 import "./Channel.css";
 const Channel = ({
   channelName,
@@ -56,6 +57,7 @@ const Channel = ({
       ) : (
         <p>
           {mostRecentMsg[0]}: {mostRecentMsg[1]}
+
         </p>
       )}
     </div>
