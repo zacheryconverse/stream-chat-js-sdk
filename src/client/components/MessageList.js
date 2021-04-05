@@ -46,7 +46,8 @@ export default function MessageList({ chatClient, active }) {
     if (message.user.id === chatClient.userID) return 'my-message';
     else return 'not-my-message';
   }
-messages && messages.map(message => message.attachments.length && console.log(message.attachments))
+
+
   return (
     <div className="Message-List">
       <Header
