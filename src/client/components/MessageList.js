@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
 import SendMessage from './SendMessage/SendMessage';
+import parse from 'html-react-parser';
 
 export default function MessageList({ chatClient, active }) {
   const [channelResult, setChannelResult] = useState("");
@@ -59,7 +60,7 @@ export default function MessageList({ chatClient, active }) {
               <Fragment key={message.id}>
                 <li
                   className={`${checkIfMe(message)} message`}
-                >{`${message.text}\n`}</li>
+                >{parse(message.html)}</li>
                 <ul
                   className={
                     checkIfMe(message) === "my-message" ? "me" : "not-me"
