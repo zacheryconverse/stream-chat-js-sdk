@@ -5,6 +5,7 @@ import "./ChannelList.css";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
+
   //change filter to member who is currently logged in
 
   //Populates channelList
@@ -17,7 +18,6 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         .then((r) => setChannelList(r));
     };
     getChannels();
-
   }, []);
 
   //Updates on events
@@ -43,12 +43,11 @@ chatClient.on("channel.deleted", (e) =>
   updateChannelList("messaging", e.channel.id, "delete")
 );
 
-
   //set limits
   const createChannel = (e) => {
     e.preventDefault();
-    const channel = chatClient.channel("messaging", newChannelName, {
-      members: ["Zachery", "Cody"],
+  const channel = chatClient.channel("messaging", newChannelName, {
+      members: [chatClient.userID],
       name: "This channel was created client-side",
       created_by: { id: chatClient.userID },
     });

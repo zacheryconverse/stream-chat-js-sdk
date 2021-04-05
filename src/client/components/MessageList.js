@@ -3,11 +3,11 @@ import Header from "./Header";
 import SendMessage from './SendMessage/SendMessage';
 import parse from 'html-react-parser';
 
+
 export default function MessageList({ chatClient, active }) {
   const [channelResult, setChannelResult] = useState("");
   const [messages, setMessages] = useState("");
   const messagesEndRef = useRef(null);
-  // const channel = chatClient.channel("messaging", "channel-id-123");
   const channel = chatClient.channel("messaging", active);
 
   const scrollToBottom = () => {
@@ -18,7 +18,6 @@ export default function MessageList({ chatClient, active }) {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
     let day = date.getDate().toString().padStart(2, "0");
-
     return month + "/" + day + "/" + year;
   }
 
@@ -33,20 +32,23 @@ export default function MessageList({ chatClient, active }) {
       // });
       await scrollToBottom();
       channel.on("message.new", (e) => {
-        console.log("New Message", e);
-        console.log("Channel State", channel.state);
         setMessages(channel.state.messages);
         // ^^ change to optimistic render in sendMessage??
+        scrollToBottom();
       });
     };
     fetchMessages();
   }, [channel, chatClient, active]);
 
   const checkIfMe = (message) => {
-    if (message.user.id === chatClient.userID) return 'my-message';
-    else return 'not-my-message';
-  }
-messages && messages.map(message => message.attachments.length && console.log(message.attachments))
+
+
+    if (message.type === "system") return "system";
+    else if (message.user.id === chatClient.userID) return "my-message";
+    else return "not-my-message";
+  };
+
+
   return (
     <div className="Message-List">
       <Header
@@ -55,9 +57,17 @@ messages && messages.map(message => message.attachments.length && console.log(me
         channelResult={channelResult}
       />
       <ul className="messages">
-        {messages
-          ? messages.map((message, i) => (
-              <Fragment key={message.id}>
+        {messages &&
+          messages.map((message, i) => (
+            <Fragment key={message.id}>
+              <li
+                className={`${checkIfMe(message)} message`}
+              >{`${message.text}\n`}</li>
+              <ul
+                className={
+                  checkIfMe(message) === "my-message" ? "me" : "not-me"
+                }
+              >
                 <li
                   className={`${checkIfMe(message)} message`}
                 >{parse(message.html)}
@@ -92,6 +102,20 @@ messages && messages.map(message => message.attachments.length && console.log(me
               </Fragment>
             ))
           : ""}
+                  style={{
+                    fontSize: "small",
+                    listStyleType: "none",
+                    border: "0",
+                  }}
+                >
+                  {`${message.user.id} on ${getFormattedDate(
+                    new Date(message.created_at)
+                  )}`}
+                </li>
+              </ul>
+              <div ref={messagesEndRef}></div>
+            </Fragment>
+          ))}
       </ul>
     </div>
   );

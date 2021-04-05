@@ -42,6 +42,7 @@ const Channel = ({
       <div className="channel-upper">
         <p className="channel-name">{channelName}</p>
         <AddMember chatClient={chatClient} channel={channel} />
+
         {canDelete() && 
                 <p
                 className="delete-channel"
@@ -51,10 +52,9 @@ const Channel = ({
                 Delete
               </p>
         }
-
       </div>
       {!messages.length ? (
-        <p>No messages yet</p>
+        <p className='no-msg'>No messages yet</p>
       ) : (
         <p className='recent-msg'>
           {mostRecentMsg[0]}:{" "}
