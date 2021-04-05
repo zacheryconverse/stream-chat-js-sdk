@@ -54,7 +54,7 @@ const Channel = ({
 
       </div>
       {!messages.length ? (
-        <p>No messages yet</p>
+        <p className='no-msg'>No messages yet</p>
       ) : (
         <p className='recent-msg'>
           {mostRecentMsg[0]}:{" "}

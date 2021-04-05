@@ -7,7 +7,6 @@ export default function MessageList({ chatClient, active }) {
   const [channelResult, setChannelResult] = useState("");
   const [messages, setMessages] = useState("");
   const messagesEndRef = useRef(null);
-  // const channel = chatClient.channel("messaging", "channel-id-123");
   const channel = chatClient.channel("messaging", active);
 
   const scrollToBottom = () => {
@@ -18,7 +17,6 @@ export default function MessageList({ chatClient, active }) {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
     let day = date.getDate().toString().padStart(2, "0");
-
     return month + "/" + day + "/" + year;
   }
 
@@ -33,19 +31,19 @@ export default function MessageList({ chatClient, active }) {
       // });
       await scrollToBottom();
       channel.on("message.new", (e) => {
-        console.log("New Message", e);
-        console.log("Channel State", channel.state);
         setMessages(channel.state.messages);
         // ^^ change to optimistic render in sendMessage??
+        scrollToBottom();
       });
     };
     fetchMessages();
   }, [channel, chatClient, active]);
 
   const checkIfMe = (message) => {
-    if (message.user.id === chatClient.userID) return 'my-message';
-    else return 'not-my-message';
-  }
+    if (message.type === "system") return "system";
+    else if (message.user.id === chatClient.userID) return "my-message";
+    else return "not-my-message";
+  };
 
 
   return (
@@ -56,12 +54,13 @@ export default function MessageList({ chatClient, active }) {
         channelResult={channelResult}
       />
       <ul className="messages">
-        {messages
-          ? messages.map((message, i) => (
-              <Fragment key={message.id}>
+        {messages &&
+          messages.map((message, i) => (
+            <Fragment key={message.id}>
                 <li
-                  className={`${checkIfMe(message)} message`}
-                >{parse(message.html)}
+                  className={`${checkIfMe(message)} message`}>
+                    
+                    {parse(message.html)}
                 
                 {message.attachments.length ? (
                   <img src={message.attachments[0].thumb_url} alt={message.attachments[0].title} className="message-img" />
@@ -89,10 +88,8 @@ export default function MessageList({ chatClient, active }) {
                   </li>
                 </ul>
                 <div ref={messagesEndRef}></div>
-                {/* <SendMessage chatClient={chatClient} /> */}
-              </Fragment>
-            ))
-          : ""}
+      </Fragment>
+          ))}
       </ul>
     </div>
   );
