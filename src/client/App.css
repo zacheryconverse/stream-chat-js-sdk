@@ -89,6 +89,16 @@ button {
   background-color: #4CB7FF;
 }
 
+.channel-name {
+  font-size: 18px;
+  margin: 0;
+}
+
+.recent-msg {
+  font-size: 12px;
+  margin: 0;
+}
+
 .Message-List {
   height: 65vh;
   overflow: scroll;

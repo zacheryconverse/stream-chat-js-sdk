@@ -55,7 +55,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   return (
     <div className="channel-list-container">
       <div className="channel-list">
-        <h3 className="channel-list_header">All Channels</h3>
+        <h4 className="channel-list_header">All Channels</h4>
         {renderChannelComponent()}
       </div>
       <div className="create-channel-area">
