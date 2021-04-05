@@ -46,7 +46,7 @@ export default function MessageList({ chatClient, active }) {
     if (message.user.id === chatClient.userID) return 'my-message';
     else return 'not-my-message';
   }
-
+messages && messages.map(message => message.attachments.length && console.log(message.attachments))
   return (
     <div className="Message-List">
       <Header
@@ -60,12 +60,21 @@ export default function MessageList({ chatClient, active }) {
               <Fragment key={message.id}>
                 <li
                   className={`${checkIfMe(message)} message`}
-                >{parse(message.html)}</li>
+                >{parse(message.html)}
+                
+                {message.attachments.length ? (
+                  <img src={message.attachments[0].thumb_url} alt={message.attachments[0].title} className="message-img" />
+                  ) :
+                  true
+                  }
+                </li>
+                
                 <ul
                   className={
                     checkIfMe(message) === "my-message" ? "me" : "not-me"
                   }
                 >
+                 
                   <li
                     style={{
                       fontSize: "small",
