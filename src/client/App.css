@@ -143,6 +143,12 @@ button {
   border-bottom-left-radius: 0;
 }
 
+.system {
+  border: none;
+  margin-left: 20vw;
+  text-decoration: underline;
+}
+
 .me {
   margin-left: 40vw;
 }
