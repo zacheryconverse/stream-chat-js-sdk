@@ -5,18 +5,18 @@ export default function Header({ chatClient, channel, channelResult }) {
 
   const getOnlineCount = (members) => {
     return members.reduce((a, c) => {
-      return a+= c.user.online;
+      return (a += c.user.online);
     }, 0);
   };
-// getOnlineCount(channelResult.members);
+  // getOnlineCount(channelResult.members);
   // useEffect(() => {
   //   getOnlineCount(channelResult.members)
   // }, [channelResult.members])
 
-  channel.on('member.added', e => {
-    console.log(e, 'MEMBER ADDED');
+  channel.on("member.added", (e) => {
+    console.log(e, "MEMBER ADDED");
     // setOnline(channel.state.users)
-  })
+  });
 
   return (
     <div className="Header">
@@ -28,8 +28,7 @@ export default function Header({ chatClient, channel, channelResult }) {
           </p>
           <p className="Header_content">
             <small>
-              {channelResult.members.length} members,{" "}
-              {online} online
+              {channelResult.members.length} members, {online} online
             </small>
           </p>
         </div>

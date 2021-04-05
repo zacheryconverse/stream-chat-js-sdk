@@ -18,7 +18,6 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         .then((r) => setChannelList(r));
     };
     getChannels();
-
   }, []);
 
   //Updates on events
@@ -31,19 +30,18 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     }
     if (action === "delete") {
       setChannelList(channelList.filter((channel) => channel.id !== channelID));
-    }   
+    }
   };
-  
-chatClient.on("notification.added_to_channel", (e) =>
-  updateChannelList("messaging", e.channel.id, "add")
-);
-chatClient.on("notification.channel_deleted", (e) =>
-  updateChannelList("messaging", e.channel.id, "delete")
-);
-chatClient.on("channel.deleted", (e) =>
-  updateChannelList("messaging", e.channel.id, "delete")
-);
 
+  chatClient.on("notification.added_to_channel", (e) =>
+    updateChannelList("messaging", e.channel.id, "add")
+  );
+  chatClient.on("notification.channel_deleted", (e) =>
+    updateChannelList("messaging", e.channel.id, "delete")
+  );
+  chatClient.on("channel.deleted", (e) =>
+    updateChannelList("messaging", e.channel.id, "delete")
+  );
 
   //set limits
   const createChannel = (e) => {
@@ -60,8 +58,6 @@ chatClient.on("channel.deleted", (e) =>
     const channel = chatClient.channel("messaging", channelid);
     channel.delete();
   };
-
-
 
   const renderChannelComponent = () => {
     if (channelList.length) {

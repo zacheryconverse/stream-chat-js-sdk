@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
-import SendMessage from './SendMessage/SendMessage';
-import parse from 'html-react-parser';
+import SendMessage from "./SendMessage/SendMessage";
+import parse from "html-react-parser";
 
 export default function MessageList({ chatClient, active }) {
   const [channelResult, setChannelResult] = useState("");
@@ -45,7 +45,6 @@ export default function MessageList({ chatClient, active }) {
     else return "not-my-message";
   };
 
-
   return (
     <div className="Message-List">
       <Header
@@ -57,38 +56,39 @@ export default function MessageList({ chatClient, active }) {
         {messages &&
           messages.map((message, i) => (
             <Fragment key={message.id}>
-                <li
-                  className={`${checkIfMe(message)} message`}>
-                    
-                    {parse(message.html)}
-                
+              <li className={`${checkIfMe(message)} message`}>
+                {parse(message.html)}
+
                 {message.attachments.length ? (
-                  <img src={message.attachments[0].thumb_url} alt={message.attachments[0].title} className="message-img" />
-                  ) :
+                  <img
+                    src={message.attachments[0].thumb_url}
+                    alt={message.attachments[0].title}
+                    className="message-img"
+                  />
+                ) : (
                   true
-                  }
-                </li>
-                
-                <ul
-                  className={
-                    checkIfMe(message) === "my-message" ? "me" : "not-me"
-                  }
+                )}
+              </li>
+
+              <ul
+                className={
+                  checkIfMe(message) === "my-message" ? "me" : "not-me"
+                }
+              >
+                <li
+                  style={{
+                    fontSize: "small",
+                    listStyleType: "none",
+                    border: "0",
+                  }}
                 >
-                 
-                  <li
-                    style={{
-                      fontSize: "small",
-                      listStyleType: "none",
-                      border: "0",
-                    }}
-                  >
-                    {`${message.user.id} on ${getFormattedDate(
-                      new Date(message.created_at)
-                    )}`}
-                  </li>
-                </ul>
-                <div ref={messagesEndRef}></div>
-      </Fragment>
+                  {`${message.user.id} on ${getFormattedDate(
+                    new Date(message.created_at)
+                  )}`}
+                </li>
+              </ul>
+              <div ref={messagesEndRef}></div>
+            </Fragment>
           ))}
       </ul>
     </div>
