@@ -40,7 +40,6 @@ const Channel = ({
       onClick={() => setActiveChannel(channelName)}
     >
       <div className="channel-upper">
-<<<<<<< HEAD
         <p className="channel-name">{channelName}</p>
         <AddMember chatClient={chatClient} channel={channel} />
         <p
@@ -50,32 +49,13 @@ const Channel = ({
           {" "}
           Delete
         </p>
-=======
-        <p>{channelName}</p>
-        {
-        canDelete() && (
-          <p
-            className="delete-channel"
-            onClick={() => deleteChannel(channelName)}
-          >
-            {" "}
-            Delete
-          </p>
-        )}
->>>>>>> 0a38ac7acd4b2d76f3963a8520d574f608b5df2e
       </div>
       {!messages.length ? (
         <p>No messages yet</p>
       ) : (
-<<<<<<< HEAD
         <p className='recent-msg'>
           {mostRecentMsg[0]}:{" "}
           {mostRecentMsg[1]}
-=======
-        <p>
-          {mostRecentMsg[0]}: {mostRecentMsg[1]}
-
->>>>>>> 0a38ac7acd4b2d76f3963a8520d574f608b5df2e
         </p>
       )}
     </div>
