@@ -4,23 +4,22 @@ export default function Header({ chatClient, channel, channelResult }) {
   const [online, setOnline] = useState(0);
 
   const getOnlineCount = (members) => {
-    return members.reduce((a, c) => {
-      return a+= c.user.online;
-    }, 0);
+    return members.reduce((a, c) => (a += c.user.online), 0);
   };
-// getOnlineCount(channelResult.members);
+  // getOnlineCount(channelResult.members);
   // useEffect(() => {
   //   getOnlineCount(channelResult.members)
   // }, [channelResult.members])
 
-  channel.on('member.added', e => {
-    console.log(e, 'MEMBER ADDED');
-    // setOnline(channel.state.users)
-  })
+  channel.on("member.added", (e) => {
+    console.log(e, "MEMBER ADDED");
+    // channel.query
+    // setOnline(channel.data.member_count)
+  });
 
   return (
     <div className="Header">
-      {channelResult ? (
+      {channelResult && (
         <div>
           <h2 className="Header_content">{channelResult.channel.id}</h2>
           <p className="Header_content">
@@ -28,13 +27,10 @@ export default function Header({ chatClient, channel, channelResult }) {
           </p>
           <p className="Header_content">
             <small>
-              {channelResult.members.length} members,{" "}
-              {online} online
+              {channelResult.members.length} members, {getOnlineCount(channelResult.members)} online
             </small>
           </p>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );
