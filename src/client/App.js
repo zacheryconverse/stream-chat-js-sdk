@@ -23,7 +23,7 @@ console.log(activeChannel)
     <div className="App">
       {chatClient.user ? (
         // {isLoggedIn && chatClient.user ? (
-        <div className="container">
+        <div className="app-container">
           <div className="welcome"></div>
           <ChannelList
             chatClient={chatClient}

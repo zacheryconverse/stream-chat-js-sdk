@@ -8,18 +8,19 @@ export default function Header({ chatClient, channel, channelResult }) {
       return a+= c.user.online;
     }, 0);
   };
-
+// getOnlineCount(channelResult.members);
   // useEffect(() => {
   //   getOnlineCount(channelResult.members)
-  // }, [online])
+  // }, [channelResult.members])
+
   channel.on('member.added', e => {
-    console.log(e);
+    console.log(e, 'MEMBER ADDED');
+    // setOnline(channel.state.users)
   })
 
   return (
     <div className="Header">
       {channelResult ? (
-        // `${chatClient.user.id}`
         <div>
           <h2 className="Header_content">{channelResult.channel.id}</h2>
           <p className="Header_content">
@@ -28,7 +29,7 @@ export default function Header({ chatClient, channel, channelResult }) {
           <p className="Header_content">
             <small>
               {channelResult.members.length} members,{" "}
-              {getOnlineCount(channelResult.members)} online
+              {online} online
             </small>
           </p>
         </div>

@@ -8,7 +8,7 @@ body {
   font-family: "Helvetica";
 }
 
-.container {
+.app-container {
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-template-rows: 0.5fr 4fr 1fr;
@@ -73,28 +73,36 @@ button {
 
 .channel-list_header {
   border: solid 1px;
-  background-color: #D0DFE2;
-  padding: 10px;margin-top: 0;
+  background-color: #d0dfe2;
+  padding: 10px;
+  margin-top: 0;
 }
 
 .channel-container {
   cursor: grab;
   border: solid 1px;
   margin: 5px;
-  padding: 3px;border-radius: 10px;
-  background-color: #D9D2E9;
+  padding: 3px;
+  border-radius: 10px;
+  background-color: #d9d2e9;
 }
 
 .channel-container:hover {
-  background-color: #4CB7FF;
+  background-color: #4cb7ff;
 }
 
 .channel-name {
   font-size: 18px;
-  margin: 0;
+  text-decoration: underline;
+  margin: 0 0 3px 0;
 }
 
 .recent-msg {
+  font-size: 12px;
+  margin: 0;
+}
+
+.no-msg {
   font-size: 12px;
   margin: 0;
 }
@@ -119,20 +127,26 @@ button {
   border-radius: 10px;
   width: 20vw;
   padding: 4px;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 .my-message {
   justify-content: flex-start;
-  background-color: #35C95A;
+  background-color: #35c95a;
   border-bottom-right-radius: 0;
   margin-left: auto;
   margin-right: 2em;
 }
 
 .not-my-message {
-  background-color: #F9CB9C;
+  background-color: #f9cb9c;
   border-bottom-left-radius: 0;
+}
+
+.system {
+  border: none;
+  margin-left: 20vw;
+  text-decoration: underline;
 }
 
 .me {
