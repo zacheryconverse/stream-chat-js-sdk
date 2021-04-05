@@ -20,7 +20,7 @@ const Channel = ({
       onClick={() => setActiveChannel(channelName)}
     >
       <div className="channel-upper">
-        <p>{channelName}</p>
+        <p className="channel-name">{channelName}</p>
         <AddMember chatClient={chatClient} channel={channel} />
         <p
           className="delete-channel"
@@ -33,7 +33,7 @@ const Channel = ({
       {!messages.length ? (
         <p>No messages yet</p>
       ) : (
-        <p>
+        <p className='recent-msg'>
           {mostRecentMsg[0]}:{" "}
           {mostRecentMsg[1]}
         </p>
