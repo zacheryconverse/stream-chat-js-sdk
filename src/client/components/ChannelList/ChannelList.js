@@ -16,7 +16,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
 
   const createChannel = async (e) => {
     e.preventDefault();
-    const channel = chatClient.channel("messaging", newChannelName, {
+  const channel = chatClient.channel("messaging", newChannelName, {
       members: [chatClient.userID],
       name: "This channel was created client-side",
     });
