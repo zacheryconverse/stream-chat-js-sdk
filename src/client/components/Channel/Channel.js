@@ -42,13 +42,16 @@ const Channel = ({
       <div className="channel-upper">
         <p className="channel-name">{channelName}</p>
         <AddMember chatClient={chatClient} channel={channel} />
-        <p
-          className="delete-channel"
-          onClick={() => deleteChannel(channelName)}
-        >
-          {" "}
-          Delete
-        </p>
+        {canDelete() && 
+                <p
+                className="delete-channel"
+                onClick={() => deleteChannel(channelName)}
+              >
+                {" "}
+                Delete
+              </p>
+        }
+
       </div>
       {!messages.length ? (
         <p>No messages yet</p>

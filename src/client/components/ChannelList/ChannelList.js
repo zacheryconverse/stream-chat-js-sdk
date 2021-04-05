@@ -24,7 +24,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   const createChannel = (e) => {
     e.preventDefault();
     const channel = chatClient.channel("messaging", newChannelName, {
-      members: [chatClient.userID],
+      members: ['Zachery', 'Cody'],
       name: "This channel was created client-side",
       created_by: {id: chatClient.userID}
     });
@@ -33,7 +33,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
 
   const deleteChannel = (channelid) => {
     const channel = chatClient.channel("messaging", channelid);
-    channel.delete();
+    channel.delete()
   };
 
   const updateChannelList = async (channelType, channelID, action) => {
