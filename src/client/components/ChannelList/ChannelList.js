@@ -9,12 +9,11 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
 
   //Populates channelList
   useEffect(() => {
-    const filter = { type: "messaging", members: { $in: ["Zachery", "Cody"] } };
+    const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
     const sort = [{ last_message_at: -1 }];
 
     chatClient.queryChannels(filter, sort).then((r) => setChannelList(r));
   }, [chatClient]);
-console.log('did i render')
 
   const updateChannelList = async (channelType, channelID) => {
     setChannelList([
