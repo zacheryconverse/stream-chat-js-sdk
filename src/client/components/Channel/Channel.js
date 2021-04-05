@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddMember from '../AddMember';
 import "./Channel.css";
 const Channel = ({
   channelName,
@@ -39,23 +40,22 @@ const Channel = ({
       onClick={() => setActiveChannel(channelName)}
     >
       <div className="channel-upper">
-        <p>{channelName}</p>
-        {
-        canDelete() && (
-          <p
-            className="delete-channel"
-            onClick={() => deleteChannel(channelName)}
-          >
-            {" "}
-            Delete
-          </p>
-        )}
+        <p className="channel-name">{channelName}</p>
+        <AddMember chatClient={chatClient} channel={channel} />
+        <p
+          className="delete-channel"
+          onClick={() => deleteChannel(channelName)}
+        >
+          {" "}
+          Delete
+        </p>
       </div>
       {!messages.length ? (
         <p>No messages yet</p>
       ) : (
-        <p>
-          {mostRecentMsg[0]}: {mostRecentMsg[1]}
+        <p className='recent-msg'>
+          {mostRecentMsg[0]}:{" "}
+          {mostRecentMsg[1]}
         </p>
       )}
     </div>

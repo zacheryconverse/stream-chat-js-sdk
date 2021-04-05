@@ -5,19 +5,13 @@ import "./ChannelList.css";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
-  //change filter to member who is currently logged in
+  // const filter = { type: "messaging" };
+  const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
+  const sort = [{ last_message_at: -1 }];
 
-  //Populates channelList
   useEffect(() => {
-    const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
-    const sort = [{ last_message_at: -1 }];
-    const getChannels = async () => {
-      await chatClient
-        .queryChannels(filter, sort)
-        .then((r) => setChannelList(r));
-    };
-    getChannels();
-  }, [chatClient]);
+    chatClient.queryChannels(filter, sort).then((r) => setChannelList(r));
+  }, []);
 
   //set limits
   const createChannel = (e) => {
@@ -78,7 +72,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   return (
     <div className="channel-list-container">
       <div className="channel-list">
-        All Channels
+        <h4 className="channel-list_header">All Channels</h4>
         {renderChannelComponent()}
       </div>
       <div className="create-channel-area">

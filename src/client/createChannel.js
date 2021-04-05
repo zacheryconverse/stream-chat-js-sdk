@@ -31,9 +31,9 @@ const createChannel = async (channelType, cid, members, name) => {
 
 createChannel(
   "messaging",
-  "channel-id-123",
-  ["Zachery", "Cody", "Sam"],
-  "A channel about coding a chat app"
+  "Rad-Room",
+  ["Zachery", "Cody", "Zack"],
+  "Where rad people chat"
 ).then(() => console.log("createChannel Called"));
 
 

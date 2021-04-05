@@ -34,8 +34,24 @@ body {
   padding: 10px;
 }
 
+input:focus {
+  outline: none;
+}
+
 button {
   cursor: pointer;
+}
+
+.New-user {
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  width: 65vw;
+  border: solid 1px;
+  background-color: #d9ead3;
+  /* grid-area: message-list; */
 }
 
 .Header {
@@ -55,6 +71,34 @@ button {
   font-weight: 200;
 }
 
+.channel-list_header {
+  border: solid 1px;
+  background-color: #D0DFE2;
+  padding: 10px;margin-top: 0;
+}
+
+.channel-container {
+  cursor: grab;
+  border: solid 1px;
+  margin: 5px;
+  padding: 3px;border-radius: 10px;
+  background-color: #D9D2E9;
+}
+
+.channel-container:hover {
+  background-color: #4CB7FF;
+}
+
+.channel-name {
+  font-size: 18px;
+  margin: 0;
+}
+
+.recent-msg {
+  font-size: 12px;
+  margin: 0;
+}
+
 .Message-List {
   height: 65vh;
   overflow: scroll;
@@ -67,35 +111,40 @@ button {
 
 .messages {
   list-style-type: none;
+  color: grey;
 }
 
 .message {
   border: 1px solid;
   border-radius: 10px;
   width: 20vw;
-  padding: 2px;
+  padding: 4px;
   font-size: .8em;
 }
 
 .my-message {
-  margin-left: 45vh;
+  justify-content: flex-start;
   background-color: #35C95A;
-}
-
-.me {
-  margin-left: 50vh;
-}
-
-.not-me {
-  margin-left: 7vh;
+  border-bottom-right-radius: 0;
+  margin-left: auto;
+  margin-right: 2em;
 }
 
 .not-my-message {
   background-color: #F9CB9C;
+  border-bottom-left-radius: 0;
+}
+
+.me {
+  margin-left: 40vw;
+}
+
+.not-me {
+  /* margin-left: 2vh; */
 }
 
 .send-message {
-  height: 80px;
+  height: 10vh;
   border: 1px solid;
   border-left: 0;
   background-color: #ffe599;
@@ -109,10 +158,5 @@ button {
   width: 80px;
   height: 30px;
   border-radius: 90px;
-  margin: 30px;
+  margin: 30px 30px 30px 10px;
 }
-
-/* .send-message-container {
-  min-height: 10vh;
-  width: 80vw;
-} */
