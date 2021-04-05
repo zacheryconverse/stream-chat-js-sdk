@@ -11,48 +11,51 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   useEffect(() => {
     const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
     const sort = [{ last_message_at: -1 }];
-
-    chatClient.queryChannels(filter, sort).then((r) => setChannelList(r));
+    const getChannels = async () => {
+      await chatClient
+        .queryChannels(filter, sort)
+        .then((r) => setChannelList(r));
+    };
+    getChannels();
   }, [chatClient]);
 
-  const updateChannelList = async (channelType, channelID) => {
-    setChannelList([
-      ...channelList,
-      chatClient.channel(channelType, channelID),
-    ]);
-  };
-
-
-  chatClient.on("notification.added_to_channel", (e) =>
-    updateChannelList("messaging", e.channel.id)
-  );
-  chatClient.on("channel.deleted", (e) =>
-    setChannelList(channelList.filter((channel) => channel.id !== e.channel.id))
-  );
   //set limits
-  const createChannel = async (e) => {
+  const createChannel = (e) => {
     e.preventDefault();
     const channel = chatClient.channel("messaging", newChannelName, {
       members: ["Cody", "Zachery"],
       name: "This channel was created client-side",
+      created_by: {id: chatClient.userID}
     });
     channel.watch();
-    const created = chatClient.channel("messaging", newChannelName);
-
-    // channel.on('channel.update', setChannelList([...channelList, created]))
   };
-  //    chatClient.on("notification.added_to_channel",
-  //    console.log('add-d')
-  //     //   updateChannelList('messaging', chatClient.channel.channel_id)
-  //       );
 
-  const deleteChannel = async (channelid) => {
+  const deleteChannel = (channelid) => {
     const channel = chatClient.channel("messaging", channelid);
-    await channel.delete();
-    // could trigger useeffect on this as well ^
-    // listen for channel.deleted so another user can delete and update dynamically
-    // only render delete if the current user is the owner
+    channel.delete();
   };
+
+  const updateChannelList = async (channelType, channelID, action) => {
+    if (action === "add") {
+      await setChannelList([
+        ...channelList,
+        chatClient.channel(channelType, channelID),
+      ]);
+    }
+    if (action === "delete") {
+      await setChannelList(
+        channelList.filter((channel) => channel.id !== channelID)
+      );
+    }
+  };
+  chatClient.on("notification.added_to_channel", (e) =>
+    updateChannelList("messaging", e.channel.id, "add")
+  );
+  chatClient.on("channel.deleted", (e) =>
+    updateChannelList("messaging", e.channel.id, "delete")
+  );
+
+
 
   const renderChannelComponent = () => {
     if (channelList.length) {
@@ -65,6 +68,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
             setActiveChannel={setActiveChannel}
             key={channel.id}
             channel={channel}
+            chatClient={chatClient}
           />
         );
       });
