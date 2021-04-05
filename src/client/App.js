@@ -31,8 +31,12 @@ function App() {
           />
           {activeChannel ? (
             <Fragment>
-              <MessageList active={activeChannel} chatClient={chatClient} setLoggedIn={setLoggedIn} />
-              <SendMessage chatClient={chatClient} />
+              <MessageList
+                active={activeChannel}
+                chatClient={chatClient}
+                setLoggedIn={setLoggedIn}
+              />
+              <SendMessage active={activeChannel} chatClient={chatClient} />
             </Fragment>
           ) : (
             <NewUser client={chatClient} />
