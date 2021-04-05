@@ -17,44 +17,48 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         .then((r) => setChannelList(r));
     };
     getChannels();
-  }, [chatClient]);
+
+  }, []);
+
+  //Updates on events
+  const updateChannelList = (channelType, channelID, action) => {
+    if (action === "add") {
+      setChannelList([
+        ...channelList,
+        chatClient.channel(channelType, channelID),
+      ]);
+    }
+    if (action === "delete") {
+      setChannelList(channelList.filter((channel) => channel.id !== channelID));
+    }   
+  };
+  
+chatClient.on("notification.added_to_channel", (e) =>
+  updateChannelList("messaging", e.channel.id, "add")
+);
+chatClient.on("notification.channel_deleted", (e) =>
+  updateChannelList("messaging", e.channel.id, "delete")
+);
+chatClient.on("channel.deleted", (e) =>
+  updateChannelList("messaging", e.channel.id, "delete")
+);
 
 
   //set limits
   const createChannel = (e) => {
     e.preventDefault();
     const channel = chatClient.channel("messaging", newChannelName, {
-      members: ['Zachery', 'Cody'],
+      members: ["Zachery", "Cody"],
       name: "This channel was created client-side",
-      created_by: {id: chatClient.userID}
+      created_by: { id: chatClient.userID },
     });
     channel.watch();
   };
 
   const deleteChannel = (channelid) => {
     const channel = chatClient.channel("messaging", channelid);
-    channel.delete()
+    channel.delete();
   };
-
-  const updateChannelList = async (channelType, channelID, action) => {
-    if (action === "add") {
-      await setChannelList([
-        ...channelList,
-        chatClient.channel(channelType, channelID),
-      ]);
-    }
-    if (action === "delete") {
-      await setChannelList(
-        channelList.filter((channel) => channel.id !== channelID)
-      );
-    }
-  };
-  chatClient.on("notification.added_to_channel", (e) =>
-    updateChannelList("messaging", e.channel.id, "add")
-  );
-  chatClient.on("channel.deleted", (e) =>
-    updateChannelList("messaging", e.channel.id, "delete")
-  );
 
 
 
