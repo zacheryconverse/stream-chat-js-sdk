@@ -6,8 +6,8 @@ import "./ChannelList.css";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
-  // const filter = { type: "messaging" };
-  const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
+  const filter = { type: "messaging" };
+  // const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
   const sort = [{ last_message_at: -1 }];
 
   useEffect(() => {
