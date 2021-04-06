@@ -19,6 +19,9 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         .then((r) => setChannelList(r));
     };
     getChannels();
+    chatClient
+        .queryChannels()
+        .then((r) => console.log(r));
   }, []);
 
   //Updates on events
@@ -26,7 +29,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     if (action === "add") {
       setChannelList([
         ...channelList,
-        chatClient.channel(channelType, channelID),
+         chatClient.channel(channelType, channelID),
       ]);
     }
     if (action === "delete") {
@@ -35,26 +38,25 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   };
 
   chatClient.on("notification.added_to_channel", (e) =>
-    updateChannelList("messaging", e.channel.id, "add")
+    updateChannelList(e.channel.type, e.channel.id, "add")
   );
   chatClient.on("notification.channel_deleted", (e) =>
-    updateChannelList("messaging", e.channel.id, "delete")
+    updateChannelList(e.channel.type, e.channel.id, "delete")
   );
   chatClient.on("channel.deleted", (e) =>
-    updateChannelList("messaging", e.channel.id, "delete")
+    updateChannelList(e.channel.type, e.channel.id, "delete")
   );
 
   //set limits
-  const createChannel = (e) => {
+  const createChannel = async (e) => {
     e.preventDefault();
-    console.log(channelType)
     setModalOpen(false)
-    const channel = chatClient.channel(channelType, newChannelName, {
+    const channel =  chatClient.channel(channelType, newChannelName, {
       members: [chatClient.userID],
       name: "This channel was created client-side",
       created_by: { id: chatClient.userID },
-    });
-    channel.watch();
+    })
+     await channel.watch();
   };
 
   const deleteChannel = (channelType, channelid) => {
@@ -112,7 +114,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   const body = (
     <div style={getModalStyle()} className={classes.paper}>
       <h2>Create A Channel</h2>
-      <form onSubmit={(e) => createChannel(e)} className="create-channel-form">
+      <form className="create-channel-form">
         <label
           onChange={(e) => setChannelType(e.target.value)}
           for="Channel Name"
@@ -130,7 +132,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
           <option value="messaging">Messaging (Click to Join)</option>
           <option value="livestream">Livestream (Public)</option>
         </select>
-        <Button variant="contained" color="primary" onClick={e => createChannel(e)}>
+        <Button variant="contained" color="primary" onClick={(e) => createChannel(e)}>
         Create Channel
       </Button>
       </form>
