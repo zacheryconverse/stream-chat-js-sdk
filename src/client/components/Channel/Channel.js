@@ -10,6 +10,7 @@ const Channel = ({
   messages,
   channel,
   createdBy,
+  channelType
 }) => {
   const [mostRecentMsg, setMostRecentMsg] = useState(
     messages.length
@@ -44,7 +45,7 @@ const Channel = ({
         {canDelete() && (
           <p
             className="delete-channel"
-            onClick={() => deleteChannel(channelName)}
+            onClick={() => deleteChannel(channelType, channelName)}
           >
             {" "}
             Delete

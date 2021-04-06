@@ -12,3 +12,12 @@
   justify-content: space-between;
   overflow: scroll;
 }
+
+.create-channel {
+  cursor: pointer;
+}
+
+.create-channel-form {
+  display: flex;
+  flex-direction: column;
+}
