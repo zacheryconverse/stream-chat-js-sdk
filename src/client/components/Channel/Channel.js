@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddMember from '../AddMember';
+import AddMember from "../AddMember";
 import "./Channel.css";
 const Channel = ({
   channelName,
@@ -9,7 +9,7 @@ const Channel = ({
   id,
   messages,
   channel,
-  createdBy
+  createdBy,
 }) => {
   const [mostRecentMsg, setMostRecentMsg] = useState(
     messages.length
@@ -19,20 +19,22 @@ const Channel = ({
         ]
       : "No Messages Yet"
   );
+
   channel.on("message.new", (e) =>
     setMostRecentMsg([e.user.id, e.message.text])
   );
-        const canDelete = () => {
-          if (!channel.data.created_by) {
-            return false
-          }
-          if (channel.data.created_by.id !== chatClient.userID) {
-            return false
-          }
-          else if (channel.data.created_by.id === chatClient.userID) {
-            return true
-          }
-        }
+
+  const canDelete = () => {
+    if (!channel.data.created_by) {
+      return false;
+    }
+    if (channel.data.created_by.id !== chatClient.userID) {
+      return false;
+    } else if (channel.data.created_by.id === chatClient.userID) {
+      return true;
+    }
+  };
+
   return (
     <div
       className="channel-container"

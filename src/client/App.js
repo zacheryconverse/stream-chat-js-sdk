@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { StreamChat } from "stream-chat";
 import "./App.css";
 import SendMessage from "./components/SendMessage/SendMessage";
@@ -21,7 +21,6 @@ function App() {
     // <ClientContext.Provider value="client">
     <div className="App">
       {chatClient.user ? (
-        // {isLoggedIn && chatClient.user ? (
         <div className="app-container">
           <div className="welcome"></div>
           <ChannelList
