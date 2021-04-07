@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
+// import AddModerator from "../../server/AddModerator";
 
 export default function Header({ chatClient, channel, channelResult }) {
-  const [online, setOnline] = useState(0);
-  // const [members, setMember] = useState(0);
+  const [memberCount, setMemberCount] = useState(0);
+  const [onlineMembers, setOnlineMembers] = useState(0);
   // increment and decrement with join / leave channel
 
-  const getOnlineCount = (members) => {
-    return members.reduce((a, c) => (a += c.user.online), 0);
+  useEffect(() => {
+    getMemberCounts(channelResult.members);
+  }, [channelResult.members]);
+
+  const getMemberCounts = (members) => {
+    if (members) {
+      let membersCount = members.reduce((a, c) => (a += c.user.online), 0);
+      setOnlineMembers(membersCount);
+      setMemberCount(members.length);
+    }
   };
-  // getOnlineCount(channelResult.members);
-  // useEffect(() => {
-  //   getOnlineCount(channelResult.members)
-  // }, [channelResult.members])
-  // const filter = { type: 'messaging', }
-  const sort = [{ created_at: 1 }];
+
   channel.on("member.added", async (e) => {
     console.log(e, "MEMBER ADDED");
-    // await channel
-    //   .queryMembers({}, sort, {})
-    //   .then((res) => console.log(res, "queryMembers"));
-    // setOnline(channel.data.member_count)
+    setMemberCount(memberCount + 1);
+    setOnlineMembers(onlineMembers + 1);
   });
 
   return (
@@ -32,10 +34,10 @@ export default function Header({ chatClient, channel, channelResult }) {
           </p>
           <p className="Header_content">
             <small>
-              {channelResult.members.length} members,{" "}
-              {getOnlineCount(channelResult.members)} online
+              {memberCount} members, {onlineMembers} online
             </small>
           </p>
+          {/* <AddModerator channel={channel} /> */}
         </div>
       )}
     </div>
