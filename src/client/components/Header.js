@@ -39,7 +39,7 @@ export default function Header({ chatClient, channel, channelResult }) {
             </small>
           </p>
           <RemoveMember chatClient={chatClient} channel={channel} />
-          <AddModerator channel={channel} />
+          {/* <AddModerator channel={channel} /> */}
         </div>
       )}
     </div>
