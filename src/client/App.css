@@ -71,6 +71,18 @@ button {
   font-weight: 200;
 }
 
+.leave-channel {
+  border: none;
+  background-color: transparent;
+  color: red;
+}
+
+.add-moderator {
+  border: none;
+  background-color: transparent;
+  color: blue;
+}
+
 .channel-list_header {
   border: solid 1px;
   background-color: #d0dfe2;

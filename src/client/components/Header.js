@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import AddModerator from "../../server/AddModerator";
+import RemoveMember from './RemoveMember';
+import AddModerator from "../../server/AddModerator";
 
 export default function Header({ chatClient, channel, channelResult }) {
   const [memberCount, setMemberCount] = useState(0);
@@ -37,7 +38,8 @@ export default function Header({ chatClient, channel, channelResult }) {
               {memberCount} members, {onlineMembers} online
             </small>
           </p>
-          {/* <AddModerator channel={channel} /> */}
+          <RemoveMember chatClient={chatClient} channel={channel} />
+          <AddModerator channel={channel} />
         </div>
       )}
     </div>
