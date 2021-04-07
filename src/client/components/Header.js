@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 export default function Header({ chatClient, channel, channelResult }) {
   const [online, setOnline] = useState(0);
+  // const [members, setMember] = useState(0);
+  // increment and decrement with join / leave channel
 
   const getOnlineCount = (members) => {
     return members.reduce((a, c) => (a += c.user.online), 0);
@@ -10,10 +12,13 @@ export default function Header({ chatClient, channel, channelResult }) {
   // useEffect(() => {
   //   getOnlineCount(channelResult.members)
   // }, [channelResult.members])
-
-  channel.on("member.added", (e) => {
+  // const filter = { type: 'messaging', }
+  const sort = [{ created_at: 1 }];
+  channel.on("member.added", async (e) => {
     console.log(e, "MEMBER ADDED");
-    // channel.query
+    // await channel
+    //   .queryMembers({}, sort, {})
+    //   .then((res) => console.log(res, "queryMembers"));
     // setOnline(channel.data.member_count)
   });
 
@@ -27,7 +32,8 @@ export default function Header({ chatClient, channel, channelResult }) {
           </p>
           <p className="Header_content">
             <small>
-              {channelResult.members.length} members, {getOnlineCount(channelResult.members)} online
+              {channelResult.members.length} members,{" "}
+              {getOnlineCount(channelResult.members)} online
             </small>
           </p>
         </div>
