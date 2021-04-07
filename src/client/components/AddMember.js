@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 export default function AddMember({ chatClient, channel }) {
   const addMemberToChannel = async (client, channel) => {
@@ -8,15 +8,15 @@ export default function AddMember({ chatClient, channel }) {
   };
 
   return (
-    <div>
+    <Fragment>
       {chatClient && (
         <button
           onClick={() => addMemberToChannel(chatClient, channel)}
-          style={{ border: 0, backgroundColor: "transparent", color: "green" }}
+          className="join-channel"
         >
           Join Channel
         </button>
       )}
-    </div>
+    </Fragment>
   );
 }

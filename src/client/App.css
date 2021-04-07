@@ -92,9 +92,17 @@ button {
 }
 
 .channel-name {
-  font-size: 18px;
+  font-size: 1rem;
   text-decoration: underline;
   margin: 0 0 3px 0;
+}
+
+.join-channel {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: green;
+  font-size: .7rem;
 }
 
 .recent-msg {
