@@ -19,10 +19,16 @@ export default function Header({ chatClient, channel, channelResult }) {
     }
   };
 
-  channel.on("member.added", async (e) => {
+  channel.on("member.added", (e) => {
     console.log(e, "MEMBER ADDED");
     setMemberCount(memberCount + 1);
     setOnlineMembers(onlineMembers + 1);
+  });
+
+  channel.on("member.removed", () => {
+    console.log("MEMBER ADDED");
+    setMemberCount(memberCount - 1);
+    setOnlineMembers(onlineMembers - 1);
   });
 
   return (

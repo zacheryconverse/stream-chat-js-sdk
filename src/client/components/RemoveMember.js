@@ -5,12 +5,18 @@ export default function RemoveMember({ chatClient, channel }) {
     await channel.removeMembers([client.userID], {
       text: `${client.userID} left ${channel.id}`
     });
-    // console.log(client, channel);
+  };
+
+  const canLeave = (members) => {
+    for (let member in members) {
+      if (member === chatClient.userID) return true;
+    }
+    return false;
   };
 
   return (
     <Fragment>
-      {chatClient && (
+      {chatClient && canLeave(channel.state.members) && (
         <button
           onClick={() => removeMemberFromChannel(chatClient, channel)}
           className="leave-channel"
