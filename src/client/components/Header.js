@@ -1,14 +1,34 @@
 import React, { useEffect, useState } from "react";
-// import AddModerator from "../../server/AddModerator";
+import RemoveMember from "./RemoveMember";
+import AddModerator from "./AddModerator";
 
 export default function Header({ chatClient, channel, channelResult }) {
   const [memberCount, setMemberCount] = useState(0);
   const [onlineMembers, setOnlineMembers] = useState(0);
-  // increment and decrement with join / leave channel
+  const [canBeModerator, setCanBeModerator] = useState(false);
 
   useEffect(() => {
     getMemberCounts(channelResult.members);
   }, [channelResult.members]);
+
+  useEffect(() => {
+    getModeratorStatus(channel.state);
+  }, [channel.state]);
+
+  const getModeratorStatus = (state) => {
+    if (state.members) {
+      for (let member in state.members) {
+        if (Object.keys(member).length > 4) {
+          setCanBeModerator(false);
+          return;
+        }
+      }
+    }
+    if (channel.data.created_by.id === chatClient.userID) {
+      setCanBeModerator(true);
+      console.log(state, canBeModerator, "!");
+    }
+  };
 
   const getMemberCounts = (members) => {
     if (members) {
@@ -18,11 +38,22 @@ export default function Header({ chatClient, channel, channelResult }) {
     }
   };
 
-  channel.on("member.added", async (e) => {
+  channel.on("member.added", (e) => {
     console.log(e, "MEMBER ADDED");
     setMemberCount(memberCount + 1);
     setOnlineMembers(onlineMembers + 1);
   });
+
+  channel.on("member.removed", () => {
+    console.log("MEMBER REMOVED");
+    setMemberCount(memberCount - 1);
+    setOnlineMembers(onlineMembers - 1);
+  });
+
+  // chatClient.on('connection.changed', e => {
+  //   if (e.online) console.log('connection is up!');
+  //   else console.log('connection is down!');
+  // })
 
   return (
     <div className="Header">
@@ -37,7 +68,10 @@ export default function Header({ chatClient, channel, channelResult }) {
               {memberCount} members, {onlineMembers} online
             </small>
           </p>
-          {/* <AddModerator channel={channel} /> */}
+          <RemoveMember chatClient={chatClient} channel={channel} />
+          {canBeModerator && (
+            <AddModerator channel={channel} chatClient={chatClient} />
+          )}
         </div>
       )}
     </div>
