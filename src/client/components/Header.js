@@ -15,18 +15,20 @@ export default function Header({ chatClient, channel, channelResult }) {
     getModeratorStatus(channel.state);
   }, [channel.state]);
 
+  // console.log(channel.state);
+
   const getModeratorStatus = (state) => {
-    if (state.members) {
-      for (let member in state.members) {
-        if (Object.keys(member).length > 4) {
+    // console.log('getMod', state);
+    if (state.membership) {
+        // console.log(state.membership, "MEMBER");
+        if (state.membership.is_moderator) {
+          // console.log('is_moderator');
           setCanBeModerator(false);
           return;
         }
-      }
     }
     if (channel.data.created_by.id === chatClient.userID) {
       setCanBeModerator(true);
-      console.log(state, canBeModerator, "!");
     }
   };
 
@@ -70,7 +72,11 @@ export default function Header({ chatClient, channel, channelResult }) {
           </p>
           <RemoveMember chatClient={chatClient} channel={channel} />
           {canBeModerator && (
-            <AddModerator channel={channel} chatClient={chatClient} />
+            <AddModerator
+              setCanBeModerator={setCanBeModerator}
+              channel={channel}
+              chatClient={chatClient}
+            />
           )}
         </div>
       )}
