@@ -31,7 +31,7 @@ const SendMessage = ({ chatClient, active }) => {
           onChange={(e) => setMessageText(e.target.value)}
           placeholder="Type your message here"
         ></input>
-        <button className="send-message">Send</button>
+        {/* <button className="send-message">Send</button> */}
         <h3>{errorText}</h3>
       </form>
     </div>
