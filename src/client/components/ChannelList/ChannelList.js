@@ -22,7 +22,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     getChannels();
     chatClient
         .queryChannels()
-        .then((r) => console.log(r));
+        // .then((r) => console.log(r));
   }, [chatClient]);
 
   //Updates on events
