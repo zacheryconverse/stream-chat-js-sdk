@@ -11,7 +11,8 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelType, setChannelType] = useState("");
   //Populates channelList
   useEffect(() => {
-    const filter = { members: { $in: [chatClient.userID] } };
+    const filter = { type: 'messaging' };
+    // const filter = { members: { $in: [chatClient.userID] } };
     const sort = [{ last_message_at: -1 }];
     const getChannels = async () => {
       await chatClient
@@ -21,8 +22,8 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     getChannels();
     chatClient
         .queryChannels()
-        .then((r) => console.log(r));
-  }, []);
+        // .then((r) => console.log(r));
+  }, [chatClient]);
 
   //Updates on events
   const updateChannelList = (channelType, channelID, action) => {
@@ -119,7 +120,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
           onChange={(e) => setChannelType(e.target.value)}
           for="Channel Name"
         >
-          Channel Name (only A-Z chars, '-', and '_' are allowed): 
+          Channel Name (only A-Z chars, '-', and '_' are allowed):
         </label>
         <input
           type="text"
@@ -162,7 +163,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
           aria-describedby="simple-modal-description"
         >
           {body}
-            
+
 
         </Modal>
       </div>
