@@ -13,7 +13,7 @@ export default function AddModerator({ chatClient, channel, setCanBeModerator })
         channel_id,
       })
       .then((res) => console.log(res, "addMod"))
-      .then(() => console.log(setCanBeModerator(false)))
+      .then(() => setCanBeModerator(false))
       .catch((err) => console.log("ERROR", err));
   };
 
