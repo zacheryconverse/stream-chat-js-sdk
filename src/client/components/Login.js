@@ -10,7 +10,7 @@ export default function Login({ setLoggedIn, chatClient }) {
       .post("http://localhost:8000/token", { user_id: userId })
       .then((res) => chatClient.connectUser({ id: userId }, res.data))
       .then(() => setLoggedIn(true))
-      .then(() => localStorage.setItem("userId", userId))
+      // .then(() => localStorage.setItem("userId", userId))
       .catch((err) => console.error("ERROR", err));
   };
 

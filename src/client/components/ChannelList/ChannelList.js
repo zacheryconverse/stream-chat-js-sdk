@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Channel from "../Channel/Channel";
 import "./ChannelList.css";
-
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
-  //change filter to member who is currently logged in
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [channelType, setChannelType] = useState("");
   //Populates channelList
   useEffect(() => {
-    const filter = { type: "messaging", members: { $in: [chatClient.userID] } };
+    const filter = { members: { $in: [chatClient.userID] } };
     const sort = [{ last_message_at: -1 }];
     const getChannels = async () => {
       await chatClient
@@ -17,46 +19,50 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         .then((r) => setChannelList(r));
     };
     getChannels();
-  }, [chatClient]);
+    chatClient
+        .queryChannels()
+        .then((r) => console.log(r));
+  }, []);
 
-
-  //set limits
-  const createChannel = (e) => {
-    e.preventDefault();
-    const channel = chatClient.channel("messaging", newChannelName, {
-      members: ['Zachery', 'Cody'],
-      name: "This channel was created client-side",
-      created_by: {id: chatClient.userID}
-    });
-    channel.watch();
-  };
-
-  const deleteChannel = (channelid) => {
-    const channel = chatClient.channel("messaging", channelid);
-    channel.delete()
-  };
-
-  const updateChannelList = async (channelType, channelID, action) => {
+  //Updates on events
+  const updateChannelList = (channelType, channelID, action) => {
     if (action === "add") {
-      await setChannelList([
+      setChannelList([
         ...channelList,
-        chatClient.channel(channelType, channelID),
+         chatClient.channel(channelType, channelID),
       ]);
     }
     if (action === "delete") {
-      await setChannelList(
-        channelList.filter((channel) => channel.id !== channelID)
-      );
+      setChannelList(channelList.filter((channel) => channel.id !== channelID));
     }
   };
+
   chatClient.on("notification.added_to_channel", (e) =>
-    updateChannelList("messaging", e.channel.id, "add")
+    updateChannelList(e.channel.type, e.channel.id, "add")
+  );
+  chatClient.on("notification.channel_deleted", (e) =>
+    updateChannelList(e.channel.type, e.channel.id, "delete")
   );
   chatClient.on("channel.deleted", (e) =>
-    updateChannelList("messaging", e.channel.id, "delete")
+    updateChannelList(e.channel.type, e.channel.id, "delete")
   );
 
+  //set limits
+  const createChannel = async (e) => {
+    e.preventDefault();
+    setModalOpen(false)
+    const channel =  chatClient.channel(channelType, newChannelName, {
+      members: [chatClient.userID],
+      name: "This channel was created client-side",
+      created_by: { id: chatClient.userID },
+    })
+     await channel.watch();
+  };
 
+  const deleteChannel = (channelType, channelid) => {
+    const channel = chatClient.channel(channelType, channelid);
+    channel.delete();
+  };
 
   const renderChannelComponent = () => {
     if (channelList.length) {
@@ -64,6 +70,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         return (
           <Channel
             channelName={channel.id}
+            channelType={channel.type}
             deleteChannel={deleteChannel}
             messages={channel.state.messages}
             setActiveChannel={setActiveChannel}
@@ -76,6 +83,68 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     }
     return "Loading";
   };
+
+  //Modal Stuff... Ignore
+  function getModalStyle() {
+    const top = 50;
+    const left = 50;
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      position: "absolute",
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: "2px solid #000",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+      fontFamily: "Helvetica",
+    },
+    root: {
+        '& > *': {
+          margin: theme.spacing(1),
+        },
+      },
+  }));
+  const classes = useStyles();
+  const body = (
+    <div style={getModalStyle()} className={classes.paper}>
+      <h2>Create A Channel</h2>
+      <form className="create-channel-form">
+        <label
+          onChange={(e) => setChannelType(e.target.value)}
+          for="Channel Name"
+        >
+          Channel Name (only A-Z chars, '-', and '_' are allowed): 
+        </label>
+        <input
+          type="text"
+          onChange={(e) => setNewChannelName(e.target.value)}
+        />
+        <label for="channel type">Channel Type</label>
+        <select name="channel type" onChange={(e) => setChannelType(e.target.value)}>
+          Channel Type
+          <option value="messaging">Select A Channel Type</option>
+          <option value="messaging">Messaging (Click to Join)</option>
+          <option value="livestream">Livestream (Public)</option>
+        </select>
+        <Button variant="contained" color="primary" onClick={(e) => createChannel(e)}>
+        Create Channel
+      </Button>
+      </form>
+    </div>
+  );
+  const handleOpen = () => {
+    setModalOpen(true);
+  };
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className="channel-list-container">
       <div className="channel-list">
@@ -83,13 +152,19 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         {renderChannelComponent()}
       </div>
       <div className="create-channel-area">
-        Create a channel named:
-        <form onSubmit={(e) => createChannel(e)}>
-          <input
-            type="text"
-            onChange={(e) => setNewChannelName(e.target.value)}
-          />
-        </form>
+        <p onClick={handleOpen} className="create-channel">
+          Create New Channel
+        </p>
+        <Modal
+          open={modalOpen}
+          onClose={handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          {body}
+            
+
+        </Modal>
       </div>
     </div>
   );

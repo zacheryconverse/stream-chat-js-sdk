@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddMember from '../AddMember';
+import AddMember from "../AddMember";
 import "./Channel.css";
 const Channel = ({
   channelName,
@@ -9,7 +9,8 @@ const Channel = ({
   id,
   messages,
   channel,
-  createdBy
+  createdBy,
+  channelType
 }) => {
   const [mostRecentMsg, setMostRecentMsg] = useState(
     messages.length
@@ -19,20 +20,20 @@ const Channel = ({
         ]
       : "No Messages Yet"
   );
+
   channel.on("message.new", (e) =>
     setMostRecentMsg([e.user.id, e.message.text])
   );
-        const canDelete = () => {
-          if (!channel.data.created_by) {
-            return false
-          }
-          if (channel.data.created_by.id !== chatClient.userID) {
-            return false
-          }
-          else if (channel.data.created_by.id === chatClient.userID) {
-            return true
-          }
-        }
+  const canDelete = () => {
+    if (!channel.data.created_by) {
+      return false;
+    }
+    if (channel.data.created_by.id !== chatClient.userID) {
+      return false;
+    } else if (channel.data.created_by.id === chatClient.userID) {
+      return true;
+    }
+  };
   return (
     <div
       className="channel-container"
@@ -42,23 +43,21 @@ const Channel = ({
       <div className="channel-upper">
         <p className="channel-name">{channelName}</p>
         <AddMember chatClient={chatClient} channel={channel} />
-        {canDelete() && 
-                <p
-                className="delete-channel"
-                onClick={() => deleteChannel(channelName)}
-              >
-                {" "}
-                Delete
-              </p>
-        }
-
+        {canDelete() && (
+          <p
+            className="delete-channel"
+            onClick={() => deleteChannel(channelType, channelName)}
+          >
+            {" "}
+            Delete
+          </p>
+        )}
       </div>
       {!messages.length ? (
-        <p>No messages yet</p>
+        <p className="no-msg">No messages yet</p>
       ) : (
-        <p className='recent-msg'>
-          {mostRecentMsg[0]}:{" "}
-          {mostRecentMsg[1]}
+        <p className="recent-msg">
+          {mostRecentMsg[0]}: {mostRecentMsg[1]}
         </p>
       )}
     </div>
