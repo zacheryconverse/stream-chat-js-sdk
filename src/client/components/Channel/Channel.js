@@ -20,6 +20,7 @@ const Channel = ({
         ]
       : "No Messages Yet"
   );
+
   channel.on("message.new", (e) =>
     setMostRecentMsg([e.user.id, e.message.text])
   );

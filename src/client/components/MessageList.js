@@ -49,7 +49,7 @@ export default function MessageList({ chatClient, active }) {
     <div className="Message-List">
       <Header
         chatClient={chatClient}
-        channel={chatClient}
+        channel={channel}
         channelResult={channelResult}
       />
       <ul className="messages">

@@ -24,7 +24,7 @@ body {
 
 .Login {
   border: solid 1px;
-  max-width: 20vw;
+  max-width: 25vw;
   min-height: 20vh;
   background-color: #a4c1f4;
   display: flex;
@@ -71,6 +71,18 @@ button {
   font-weight: 200;
 }
 
+.leave-channel {
+  border: none;
+  background-color: transparent;
+  color: red;
+}
+
+.add-moderator {
+  border: none;
+  background-color: transparent;
+  color: blue;
+}
+
 .channel-list_header {
   border: solid 1px;
   background-color: #d0dfe2;
@@ -92,9 +104,17 @@ button {
 }
 
 .channel-name {
-  font-size: 18px;
+  font-size: 1rem;
   text-decoration: underline;
   margin: 0 0 3px 0;
+}
+
+.join-channel {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: green;
+  font-size: .7rem;
 }
 
 .recent-msg {
@@ -120,6 +140,7 @@ button {
 .messages {
   list-style-type: none;
   color: grey;
+  overflow-wrap: break-word;
 }
 
 .message {
