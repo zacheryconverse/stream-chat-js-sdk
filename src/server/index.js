@@ -27,7 +27,6 @@ app.post("/token", async (req, res) => {
 app.post("/addModerator", async (req, res) => {
   const { user_id, channel_type, channel_id } = req.body;
   const channel = serverClient.channel(channel_type, channel_id);
-  await channel.create();
   const mod = await channel.addModerators([user_id]);
   try {
     res.status(200).send(mod);
