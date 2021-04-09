@@ -27,8 +27,10 @@ export default function Header({ chatClient, channel, channelResult }) {
           return;
         }
     }
-    if (channel.data.created_by.id === chatClient.userID) {
-      setCanBeModerator(true);
+    if (channel.data.created_by) {
+      if (channel.data.created_by.id === chatClient.userID) {
+        setCanBeModerator(true);
+      }
     }
   };
 

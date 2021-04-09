@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SendMessage.css";
+
 const SendMessage = ({ chatClient, active }) => {
   const channel = chatClient.channel("messaging", active);
   const [messageText, setMessageText] = useState("");
@@ -8,12 +9,13 @@ const SendMessage = ({ chatClient, active }) => {
   if (errorText && messageText) {
     setErrorText("");
   }
-  const send = (e) => {
+  const send = async (e) => {
     e.preventDefault();
     if (!messageText) {
       setErrorText("You can't send an empty message");
       return;
     }
+
     channel
       .sendMessage({ text: messageText })
       .then(() => setMessageText(""))

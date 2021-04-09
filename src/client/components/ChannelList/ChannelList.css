@@ -13,3 +13,12 @@
   overflow: scroll;
   overflow-wrap: break-word;
 }
+
+.create-channel {
+  cursor: pointer;
+}
+
+.create-channel-form {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
+import SendMessage from "./SendMessage/SendMessage";
+import parse from "html-react-parser";
 
 export default function MessageList({ chatClient, active }) {
   const [channelResult, setChannelResult] = useState("");
@@ -54,9 +56,20 @@ export default function MessageList({ chatClient, active }) {
         {messages &&
           messages.map((message, i) => (
             <Fragment key={message.id}>
-              <li
-                className={`${checkIfMe(message)} message`}
-              >{`${message.text}\n`}</li>
+              <li className={`${checkIfMe(message)} message`}>
+                {parse(message.html)}
+
+                {message.attachments.length ? (
+                  <img
+                    src={message.attachments[0].thumb_url}
+                    alt={message.attachments[0].title}
+                    className="message-img"
+                  />
+                ) : (
+                  true
+                )}
+              </li>
+
               <ul
                 className={
                   checkIfMe(message) === "my-message" ? "me" : "not-me"

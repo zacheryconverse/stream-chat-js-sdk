@@ -10,6 +10,7 @@ const Channel = ({
   messages,
   channel,
   createdBy,
+  channelType
 }) => {
   const [mostRecentMsg, setMostRecentMsg] = useState(
     messages.length
@@ -23,7 +24,6 @@ const Channel = ({
   channel.on("message.new", (e) =>
     setMostRecentMsg([e.user.id, e.message.text])
   );
-
   const canDelete = () => {
     if (!channel.data.created_by) {
       return false;
@@ -34,7 +34,6 @@ const Channel = ({
       return true;
     }
   };
-
   return (
     <div
       className="channel-container"
@@ -44,13 +43,15 @@ const Channel = ({
       <div className="channel-upper">
         <p className="channel-name">{channelName}</p>
         <AddMember chatClient={chatClient} channel={channel} />
-        <p
-          className="delete-channel"
-          onClick={() => deleteChannel(channelName)}
-        >
-          {" "}
-          Delete
-        </p>
+        {canDelete() && (
+          <p
+            className="delete-channel"
+            onClick={() => deleteChannel(channelType, channelName)}
+          >
+            {" "}
+            Delete
+          </p>
+        )}
       </div>
       {!messages.length ? (
         <p className="no-msg">No messages yet</p>
