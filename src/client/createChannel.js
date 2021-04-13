@@ -5,7 +5,7 @@ const apiKey = process.env["REACT_APP_KEY"];
 const token = process.env["REACT_APP_TOKEN"];
 const userId = process.env["REACT_APP_USERID"];
 
-console.log(apiKey, token, userId, 'apiKey');
+// console.log(apiKey, token, userId, 'apiKey');
 const chatClient = StreamChat.getInstance(apiKey);
 
 chatClient.connectUser({ id: userId }, token);
