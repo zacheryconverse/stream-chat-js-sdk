@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+p {
+  margin: 0;
+}
+
 .App {
   font-size: calc(5px + 2vmin);
   font-family: "Helvetica";
@@ -155,8 +159,7 @@ button {
   justify-content: flex-start;
   background-color: #35c95a;
   border-bottom-right-radius: 0;
-  margin-left: auto;
-  margin-right: 2em;
+  margin: 0 2em 0 auto;
 }
 
 .not-my-message {

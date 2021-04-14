@@ -16,6 +16,7 @@
 
 .create-channel {
   cursor: pointer;
+  font-size: 1.2rem;
 }
 
 .create-channel-form {

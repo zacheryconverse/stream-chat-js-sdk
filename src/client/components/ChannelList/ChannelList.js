@@ -165,9 +165,9 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
         {renderChannelComponent()}
       </div>
       <div className="create-channel-area">
-        <p onClick={handleOpen} className="create-channel">
+        <button onClick={handleOpen} className="create-channel">
           Create New Channel
-        </p>
+        </button>
         <Modal
           open={modalOpen}
           onClose={handleClose}
