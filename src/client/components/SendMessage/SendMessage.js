@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SendMessage.css";
 
 const SendMessage = ({ chatClient, active }) => {
@@ -21,6 +21,20 @@ const SendMessage = ({ chatClient, active }) => {
       .then(() => setMessageText(""))
       .catch((err) => setErrorText("There was an error. Please try again."));
   };
+
+  // useEffect(() => {
+  //   // send message to channel not being watched:
+  //   //  get token and connect user
+  //   chatClient.connectUser(
+  //     { id: "Zachery" },
+
+  //   );
+  //   // define channel to send message to (one 'Cody' isn't currently watching)
+  //   const channel2 = chatClient.channel("messaging", "CODEy");
+  //   channel2.sendMessage({ text: "hi from vscode" });
+  //   console.log("sendMessage");
+  // }, []);
+
   return (
     <div>
       <form className="send-message-container" onSubmit={send}>
@@ -31,7 +45,7 @@ const SendMessage = ({ chatClient, active }) => {
           onChange={(e) => setMessageText(e.target.value)}
           placeholder="Type your message here"
         ></input>
-        <button className="send-message">Send</button>
+        {/* <button className="send-message">Send</button> */}
         <h3>{errorText}</h3>
       </form>
     </div>
