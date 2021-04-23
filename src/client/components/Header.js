@@ -12,27 +12,22 @@ export default function Header({ chatClient, channel, channelResult }) {
   }, [channelResult.members]);
 
   useEffect(() => {
-    getModeratorStatus(channel.state);
-  }, [channel.state]);
-
-  // console.log(channel.state);
-
-  const getModeratorStatus = (state) => {
-    // console.log('getMod', state);
-    if (state.membership) {
-        // console.log(state.membership, "MEMBER");
+    const getModeratorStatus = (state) => {
+      if (state.membership) {
         if (state.membership.is_moderator) {
-          // console.log('is_moderator');
           setCanBeModerator(false);
           return;
         }
-    }
-    if (channel.data.created_by) {
-      if (channel.data.created_by.id === chatClient.userID) {
-        setCanBeModerator(true);
       }
-    }
-  };
+      if (channel.data.created_by) {
+        if (channel.data.created_by.id === chatClient.userID) {
+          setCanBeModerator(true);
+        }
+      }
+    };
+
+    getModeratorStatus(channel.state);
+  }, [channel.data.created_by, channel.state, chatClient.userID]);
 
   const getMemberCounts = (members) => {
     if (members) {
@@ -58,6 +53,13 @@ export default function Header({ chatClient, channel, channelResult }) {
   //   if (e.online) console.log('connection is up!');
   //   else console.log('connection is down!');
   // })
+
+
+  // const slowDown = async () => {
+  //   await channel.enableSlowMode(1);
+  // };
+  // slowDown();
+  // console.log("CHANNEL", channel);
 
   return (
     <div className="Header">
