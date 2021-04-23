@@ -27,7 +27,7 @@ const SendMessage = ({ chatClient, active }) => {
   //   //  get token and connect user
   //   chatClient.connectUser(
   //     { id: "Zachery" },
-
+  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiWmFjaGVyeSJ9.qQ49SM6QAQ2i5FAzwDS977orC1SxuP9UuVDZ6S7u9Kc"
   //   );
   //   // define channel to send message to (one 'Cody' isn't currently watching)
   //   const channel2 = chatClient.channel("messaging", "CODEy");
