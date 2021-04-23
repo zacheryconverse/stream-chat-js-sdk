@@ -14,11 +14,11 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     const filter = { type: "messaging" };
     // const filter = { members: { $in: [chatClient.userID] } };
     const sort = [{ last_message_at: -1 }];
-    const options = { limit: 8 };
+    const options = { limit: 31 };
     const getChannels = async () => {
       await chatClient
         .queryChannels(filter, sort, options)
-        .then((r) => setChannelList(r));
+        .then((r) => {console.log(r); setChannelList(r)});
     };
     getChannels();
     chatClient.queryChannels();
@@ -42,9 +42,9 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     updateChannelList(e.channel.type, e.channel.id, "add")
   );
   chatClient.on("notification.message_new", (e) =>
-    updateChannelList(e.channel.type, e.channel.id, "add").then((r) =>
-      console.log(r, "-new-message")
-    )
+    // updateChannelList(e.channel.type, e.channel.id, "add").then((r) =>
+      console.log(e, "-new-message")
+    // )
   );
   chatClient.on("notification.channel_deleted", (e) =>
     updateChannelList(e.channel.type, e.channel.id, "delete")

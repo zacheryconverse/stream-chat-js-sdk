@@ -31,6 +31,7 @@ export default function MessageList({ chatClient, active }) {
       // });
       await scrollToBottom();
       channel.on("message.new", (e) => {
+        console.log(e, 'NEW');
         setMessages(channel.state.messages);
         // ^^ change to optimistic render in sendMessage??
         scrollToBottom();
