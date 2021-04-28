@@ -4,6 +4,7 @@ import "./ChannelList.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
+
 const ChannelList = ({ chatClient, setActiveChannel }) => {
   const [channelList, setChannelList] = useState([]);
   const [newChannelName, setNewChannelName] = useState("");
@@ -65,6 +66,10 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
     await channel.watch();
   };
 
+  // const searchChannel = (filterBy) => {
+  //   chatClient.queryChannels(filterBy).then((res) => {})
+  // };
+
   const deleteChannel = (channelType, channelid) => {
     const channel = chatClient.channel(channelType, channelid);
     channel.delete();
@@ -100,6 +105,7 @@ const ChannelList = ({ chatClient, setActiveChannel }) => {
       transform: `translate(-${top}%, -${left}%)`,
     };
   }
+
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: "absolute",

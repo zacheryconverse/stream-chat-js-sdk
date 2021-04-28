@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import Header from "./Header";
-import SendMessage from "./SendMessage/SendMessage";
+// import SendMessage from "./SendMessage/SendMessage";
 import parse from "html-react-parser";
 
 export default function MessageList({ chatClient, active }) {
@@ -23,13 +23,13 @@ export default function MessageList({ chatClient, active }) {
   useEffect(() => {
     const fetchMessages = async () => {
       const response = await channel.watch();
-      await setMessages(response.messages);
-      await setChannelResult(response);
+      setMessages(response.messages);
+      setChannelResult(response);
       // chatClient.on("user.watching.start", (e) => {
       //   console.log("Start Channel", e);
       //   console.log("Channel State", channel.state.messages);
       // });
-      await scrollToBottom();
+      scrollToBottom();
       channel.on("message.new", (e) => {
         console.log(e, 'NEW');
         setMessages(channel.state.messages);
